@@ -1,0 +1,26 @@
+.app__status__box {
+  height: 28px;
+  padding: 5px 12px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  text-transform: capitalize;
+  border: none;
+  font-family: 'Articulat-Regular';
+
+  &__Approved {
+    color: #4eb04d;
+    background-color: #e9f8e9;
+  }
+
+  &__Pending {
+    color: #d18f3a;
+    background-color: rgba(255, 245, 231, 1);
+  }
+
+  &__Rejected {
+    color: #e63d35;
+    background-color: rgba(230, 61, 53, 0.1);
+  }
+}

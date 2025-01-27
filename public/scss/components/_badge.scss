@@ -1,0 +1,56 @@
+.badge {
+  min-width: max-content;
+  max-width: 100px;
+  font-family: 'Satoshi', sans-serif;
+  background-color: #f5f5f5;
+  color: var(--bs-dark);
+
+  &--selected {
+    background-color: #8f0dcc;
+    color: #ffffff;
+  }
+
+  &__label {
+    max-width: calc(110px - 24px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Custom styles for checkbox starts*/
+.custom-checkbox {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--red);
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5px;
+}
+
+/* Checkbox checked state styling */
+.custom-checkbox:checked {
+  background-color: var(--red);
+  border-color: var(--red);
+}
+
+.custom-checkbox:checked::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.custom-checkbox:focus {
+  border: 2px solid var(--red);
+}
+/* Custom styles for checkbox ends*/

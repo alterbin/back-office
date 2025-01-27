@@ -1,0 +1,44 @@
+.app__steps {
+  background-color: #A990DD !important;
+
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+
+    &__item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #fff;
+      font-size: 14px;
+
+      @include screen('lg') {
+        display: none;
+      }
+
+      &.active {
+        @include screen('lg') {
+          display: flex;
+        }
+
+        .app__steps__content__item__count {
+          background-color: #000;
+          border-color: #000;
+        }
+      }
+
+      &__count {
+        border: 1px solid #fff;
+        border-radius: 50%;
+        min-width: 32px;
+        width: 32px;
+        height: 32px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}

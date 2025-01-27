@@ -1,0 +1,22 @@
+.app__status {
+  padding: 2px 5px;
+  width: 4.7rem;
+  text-align: center;
+  font-size: 13px;
+  font-family: 'Articulat-Regular';
+
+  &__Confirmed {
+    background-color: #ccf4e3;
+    color: #00b066;
+  }
+
+  &__Pending {
+    background-color: #fee4c6;
+    color: #e87d00;
+  }
+
+  &__Failed {
+    background-color: #ffc7be;
+    color: #af230c;
+  }
+}

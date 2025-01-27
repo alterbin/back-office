@@ -1,0 +1,10 @@
+.app__table_mobile {
+  &__label {
+    font-size: 16px;
+    color: var(--red);
+  }
+
+  &__value {
+    margin: 0.5rem 0;
+  }
+}

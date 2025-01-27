@@ -1,0 +1,13 @@
+.app_empty_state {
+  &__h6 {
+    font-family: 'Articulat-Semibold';
+    font-size: 28px;
+    line-height: 33px;
+    color: var(--gray-600);
+  }
+
+  &__btn {
+    width: auto;
+    min-width: 350px;
+  }
+}

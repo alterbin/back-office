@@ -1,0 +1,15 @@
+.app__users {
+  &__table__data {
+    word-wrap: break-word;
+  }
+  &__modal {
+    &__header {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    &__body {
+      color: var(--sm-text);
+      font-size: 14px;
+    }
+  }
+}

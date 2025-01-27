@@ -1,0 +1,22 @@
+.app__drawer__modal_backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  left: 0;
+  top: 0;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+
+  @include screen('xl', true) {
+    display: none;
+  }
+}
+
+.app__drawer__sidebar {
+  background: #fff;
+  height: 100%;
+  width: 100%;
+  max-width: var(--sidebar-w);
+  position: absolute;
+  left: 0;
+}

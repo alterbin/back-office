@@ -1,0 +1,55 @@
+$focused-condensed-options: (
+  'focused-condensed/FormulaCondensed-Bold': 'Formula-Condensed-Bold',
+  'focused-condensed/FormulaCondensed-Light': 'Formula-Condensed-Light',
+);
+$articulat-options: (
+  'articulat/regular': 'Articulat-Regular',
+  'articulat/semibold': 'Articulat-Semibold',
+  'articulat/bold': 'Articulat-Bold',
+  'articulat/extrabold': 'Articulat-ExtraBold',
+  'articulat/light': 'Articulat-light',
+);
+
+@mixin font-face($options) {
+  @each $key, $value in $options {
+    @font-face {
+      font-family: $value;
+      src: url('../../fonts/#{$key}.otf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-smoothing: antialiased;
+    }
+  }
+}
+
+@include font-face($focused-condensed-options);
+@include font-face($articulat-options);
+
+.x-bd {
+  font-family: 'Articulat-ExtraBold' !important;
+}
+
+.Articulat-Regular {
+  font-family: 'Articulat-Regular' !important;
+}
+
+.Articulat-Semibold {
+  font-family: 'Articulat-Semibold' !important;
+}
+
+.Articulat-Bold {
+  font-family: 'Articulat-Bold' !important;
+  font-weight: 800;
+}
+
+.Articulat-ExtraBold {
+  font-family: 'Articulat-ExtraBold' !important;
+  font-weight: 900;
+}
+
+.FormulaCondensed-Bold {
+  font-family: 'Formula-Condensed-Bold' !important;
+}
+.FormulaCondensed-Light {
+  font-family: 'Formula-Condensed-Light' !important;
+}

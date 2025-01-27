@@ -1,0 +1,141 @@
+.app_dropdown_btn {
+  .dropdown-toggle {
+    background-color: transparent !important;
+    border-color: #98a2b3 !important;
+    color: #666666 !important;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+    border-radius: 8px;
+    padding: 0.175rem 0.75rem;
+    min-width: 104px;
+
+    &:focus {
+      @extend .dropdown-toggle;
+
+      box-shadow: none !important;
+      outline: none !important;
+    }
+  }
+
+  .dropdown-menu {
+    border: 1px solid var(--red);
+    border-radius: 5px;
+    min-width: 104px;
+    padding: 0;
+    top: 4px !important;
+  }
+
+  .dropdown-item {
+    color: #666666;
+    font-family: 'Articulat-Regular';
+    font-size: 16px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+
+    &:first-child {
+      border-radius: 5px 5px 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 0 5px 5px;
+    }
+
+    &:hover {
+      background-color: #f1eef7;
+    }
+
+    svg.lock path {
+      stroke: var(--red);
+    }
+  }
+}
+
+.app_button {
+  --btn-bdr: var(--Secondary-Color, #febe12);
+  --btn-bg: var(--Secondary-Color, #febe12);
+  --btn-otl: var(--Secondary-Color, #febe12);
+  --btn-tx: #fff;
+
+  display: flex;
+  padding: 12px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  border-radius: 8px;
+  border: 1px solid var(--btn-bdr);
+  background: var(--btn-bg);
+
+  height: 59px;
+
+  @include screen('x-sm') {
+    font-size: 11px;
+    min-width: max-content;
+  }
+
+  &--xl {
+    height: 50px;
+  }
+  &--lg {
+    height: 40px;
+  }
+  &--md {
+    height: 30px;
+  }
+
+  /* Shadow/xs */
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  color: var(--btn-tx);
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  span {
+    font-family: Articulat-Bold;
+    font-size: 16px;
+  }
+
+  &--primary {
+    --btn-bdr: var(--red);
+    --btn-bg: var(--red);
+    --btn-otl: var(--red);
+    --btn-tx: #fff;
+  }
+
+  &--outlined {
+    --btn-bdr: var(--btn-otl);
+    --btn-bg: transparent;
+    --btn-tx: var(--btn-otl);
+
+    &--tertiary-gray {
+      --btn-otl: #e6f9fc;
+    }
+  }
+
+  &--disabled {
+    background: #ced0d2;
+    border-color: #ced0d2;
+    cursor: not-allowed;
+  }
+}
+
+.app__add__button {
+  border: none;
+  font-family: Articulat-Bold;
+  color: var(--red);
+  background-color: transparent;
+  gap: 0.5rem;
+
+  @include screen('x-sm') {
+    font-size: 11px;
+    min-width: max-content;
+    gap: 0.1rem;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
