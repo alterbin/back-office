@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+model givens {
+  id          String      @id @default(uuid())
+  name        String      @default("")
+  description String
+  photos      String[]    @default([])
+  address     String
+  contact     String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  status      String?
+  rank        Int      @default(1)
+  isFulfilled   Boolean   @default(false)
+  hidden      Boolean     @default(false)
+  interests   given_interests[]
+}
+
+model given_interests {
+  id              String   @id @default(uuid())
+  note            String
+  contact         String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  shippingAddress String
+  givenId         String
+  givens         givens   @relation(fields: [givenId], references: [id])
+  isAccepted      Boolean @default(false)
+
+   @@unique([contact, givenId])
+}

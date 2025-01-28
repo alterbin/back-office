@@ -1,3 +1,5 @@
+@import "../../../assets/styles/main.scss";
+
 .app_dropdown_btn {
   .dropdown-toggle {
     background-color: transparent !important;
@@ -26,7 +28,7 @@
 
   .dropdown-item {
     color: #666666;
-    font-family: 'Articulat-Regular';
+    font-family: "Articulat-Regular";
     font-size: 16px;
     line-height: 20px;
     display: flex;
@@ -70,7 +72,7 @@
 
   height: 59px;
 
-  @include screen('x-sm') {
+  @include screen("x-sm") {
     font-size: 11px;
     min-width: max-content;
   }
@@ -129,7 +131,7 @@
   background-color: transparent;
   gap: 0.5rem;
 
-  @include screen('x-sm') {
+  @include screen("x-sm") {
     font-size: 11px;
     min-width: max-content;
     gap: 0.1rem;

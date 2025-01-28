@@ -3,6 +3,8 @@ import { useDebounce } from 'use-debounce';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { useQueryString } from '@/hooks/use-query';
 import { TextInput } from './text-input';
+import "./styles.scss";
+
 
 export function SearchInput() {
   const searchParams = useSearchParams();

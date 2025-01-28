@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import "./styles.scss";
 
 interface IProps extends React.HTMLProps<HTMLInputElement> {
   name?: string;

@@ -1,4 +1,5 @@
 import React from 'react';
+import "./styles.scss";
 
 interface IProps extends React.HTMLProps<HTMLSelectElement> {
   disabledValue?: string;
@@ -32,8 +33,8 @@ export const Select = (props: IProps) => {
   } = props;
 
   return (
-    <div className={`form-group w-100 ${containerClassName}`}>
-      {!!label && <label className={error ? 'text-danger' : ''} htmlFor={htmlFor}>{label}</label>}
+    <div className={`form-group w-full ${containerClassName}`}>
+      {!!label && <label className={error ? 'text-red-800' : ''} htmlFor={htmlFor}>{label}</label>}
 
       <select
         value={value}
@@ -42,7 +43,7 @@ export const Select = (props: IProps) => {
         onChange={onChange}
         style={style}
         disabled={disabled}
-        className={`form-select app_select ${className || ''} ${error ? 'border-danger' : ''}`}
+        className={`form-select app_select ${className || ''} ${error ? 'border-red-800' : ''}`}
       >
         {!!disabledValue && (
           <option disabled value="">
@@ -70,7 +71,7 @@ export const Select = (props: IProps) => {
       </select>
 
       {!!error && (
-        <p className="text-danger">{error}</p>
+        <p className="text-red-800">{error}</p>
       )}
     </div>
   );

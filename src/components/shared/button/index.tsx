@@ -1,5 +1,6 @@
 /* eslint-disable react/button-has-type */
 import { HTMLProps, ReactNode } from 'react';
+import "./styles.scss"
 
 interface IProps extends Omit<HTMLProps<HTMLButtonElement>, 'size'> {
   children?: ReactNode;

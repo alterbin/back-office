@@ -25,7 +25,7 @@ export const SubmitButton = (props: IProps) => {
   }
 
   const spinner = (
-    <div className="d-flex">
+    <div className="flex">
       <div className="spinner-border" role="status">
         <span className="visually-hidden">Loading...</span>
       </div>

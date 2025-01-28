@@ -4,10 +4,9 @@ import React from 'react';
 import { Formik } from 'formik';
 import { errorParser } from '@/utils';
 import { authQueries } from '@/services/queries';
-import Link from 'next/link';
 import { Button, TextInput } from '@/components';
-import routes from '@/utils/routes';
 import { loginValidationSchema } from './schema';
+import "../styles.scss"
 
 const initialValues = {
   email: '',
@@ -27,10 +26,10 @@ export const LoginTemplate = () => {
   };
 
   return (
-    <div className="app__auth__wrapper m-0 p-0 d-flex flex-column gap-2">
+    <div className="app__auth__wrapper m-0 p-0 flex flex-col gap-2">
       <div className="app__auth__wrapper__shadow">
-        <h1 className="app__auth__logo FormulaCondensed-Bold">
-          chop creat8
+        <h1 className="app__auth__logo">
+          Philan Back Office
         </h1>
 
         <Formik
@@ -50,7 +49,7 @@ export const LoginTemplate = () => {
             return (
               <form onSubmit={handleSubmit} className=" app__auth__register">
                 <div className=" mb-4">
-                  <h2 className="Articulat-Semibold  text-capitalize text-2xl  d-flex">
+                  <h2 className="Articulat-Semibold capitalize text-2xl  flex">
                     log in
                   </h2>
                   <p>
@@ -94,18 +93,18 @@ export const LoginTemplate = () => {
                     title="log in"
                     size="xl"
                     color="primary"
-                    className="mt-4 transition w-100 text-uppercase"
+                    className="mt-4 transition w-full uppercase"
                     isLoading={isPending}
                   />
                 </div>
-                <div className="m-auto mt-3 d-flex gap-2">
+                {/* <div className="m-auto mt-3 d-flex gap-2">
                   <Link
                     href={routes.auth.forgotPassword.path}
                     className="app__auth__wrapper__links justify-content-center d-flex w-100 fs-5 link-underline-opacity-0"
                   >
                     Forgot Password?
                   </Link>
-                </div>
+                </div> */}
               </form>
             );
           }}

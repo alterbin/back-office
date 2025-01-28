@@ -1,9 +1,11 @@
+@import "../../assets/styles/main.scss";
+
 .app__auth {
   &__input_con {
     margin-bottom: 8px;
 
-    &__error{
-      @include screen('sm'){
+    &__error {
+      @include screen("sm") {
         font-size: 11px;
       }
     }

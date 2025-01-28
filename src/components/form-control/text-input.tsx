@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { LockIcon, UnLockIcon } from '../svgs';
+import "./styles.scss";
+
 
 export interface IProps extends React.HTMLProps<HTMLInputElement> {
   type?: React.HTMLInputTypeAttribute;
@@ -25,16 +27,16 @@ export function TextInput(props: IProps) {
 
   return (
     <div className={`form-group ${className || ''}`}>
-      {!!label && <label className={error ? 'text-danger' : ''} htmlFor={htmlFor}>{label}</label>}
+      {!!label && <label className={error ? 'text-red-800' : ''} htmlFor={htmlFor}>{label}</label>}
 
-      <div className="position-relative">
+      <div className="relative">
         <input
           type={show ? 'text' : type || 'text'}
           placeholder={placeholder}
           name={name}
           value={value}
           onChange={onChange}
-          className={error ? 'form-control border-danger' : 'form-control'}
+          className={error ? 'form-control border-red-800' : 'form-control'}
           {...restProps}
         />
 
@@ -54,13 +56,13 @@ export function TextInput(props: IProps) {
       </div>
 
       {!!helperText && (
-        <p className="text-dark app__auth__input_con__error" style={{ lineHeight: 'normal', opacity: 0.8 }}>
+        <p className="text-black app__auth__input_con__error" style={{ lineHeight: 'normal', opacity: 0.8 }}>
           {helperText}
         </p>
       )}
 
       {!!error && (
-        <p className="text-danger app__auth__input_con__error">{error}</p>
+        <p className="text-red-800 app__auth__input_con__error">{error}</p>
       )}
     </div>
   );
