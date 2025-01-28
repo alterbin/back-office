@@ -39,14 +39,14 @@ export function Profile(props: IProps) {
             src={profileImage}
             alt=""
           />
-          <div className="text tx_red d-none d-xl-block">{name}</div>
+          <div className="text tx_red hidden lg:block">{name}</div>
         </>
       )}
 
       {isSidebar && (
-        <button type="button" onClick={logout} className="text-decoration-none bg-transparent border-0">
-          <span className="text-danger ms-3">Logout</span>
-          <LogOut className="cursor-pointer ms-1" />
+        <button type="button" onClick={logout} className=" flex gap-3 bg-transparent border-0">
+          <span className="text-white ms-3">Logout</span>
+          <LogOut className="cursor-pointer ms-1 my-auto" />
         </button>
       )}
 
@@ -54,7 +54,7 @@ export function Profile(props: IProps) {
         <span
           role="none"
           onClick={() => setShowSidebar((prev) => !prev)}
-          className="cursor-pointer d-block d-xl-none"
+          className="cursor-pointer block lg:hidden"
         >
           {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */}
           <Hamburger />

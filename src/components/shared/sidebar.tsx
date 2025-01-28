@@ -11,7 +11,7 @@ export interface IProps {
 }
 
 export function Sidebar(props: IProps) {
-  const { className = 'd-none d-xl-block', data } = props;
+  const { className = 'hidden lg:block', data } = props;
   const { isActive } = useActiveRoute();
 
   const sidebarRoutes = useSidebarRoutes();
@@ -22,7 +22,7 @@ export function Sidebar(props: IProps) {
         <div className="app__dashboard_layout__aside__content__top app__dashboard_layout__aside__content_px">
 
           <Link href={routes.dashboard.path} className="app__dashboard_layout__aside__logo">
-            Chop Cr8 Admin
+            Philan Admin
           </Link>
 
           <nav className="app__dashboard_layout__aside__nav">
@@ -30,8 +30,8 @@ export function Sidebar(props: IProps) {
               {sidebarRoutes.map((item) => (
                 <li className="app__dashboard_layout__aside__nav__ul__li" key={item.label}>
                   <Link href={item.href} legacyBehavior>
-                    <a className={`app__dashboard_layout__aside__nav__ul__li__a justify-content-between ${item.className || ''} ${item.href === routes.dashboard.path ? isActive(item.href, true) : isActive(item.href)}`} href={item.href}>
-                      <div className="d-flex align-items-center">
+                    <a className={`app__dashboard_layout__aside__nav__ul__li__a justify-between ${item.className || ''} ${item.href === routes.dashboard.path ? isActive(item.href, true) : isActive(item.href)}`} href={item.href}>
+                      <div className="flex items-center">
                         {item.icon}
 
                         {item.label}

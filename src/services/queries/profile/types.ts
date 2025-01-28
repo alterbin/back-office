@@ -5,11 +5,10 @@ export interface ProfileResponse {
 }
 
 export interface Profile {
-  id: string;
-  email: string;
+  id?: string;
+  email?: string;
   firstName: string;
   lastName: string;
-  onboarded: boolean;
 }
 export interface EditProfile {
   firstName: string;

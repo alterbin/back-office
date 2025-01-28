@@ -22,12 +22,8 @@ export const metaData = {
 const dbRoutes = routes.dashboard;
 
 const getAdminRoutes = () => [
-  { label: 'Dashboard', href: dbRoutes.path, icon: <Home /> },
-  { label: 'Campaigns', href: routes.campaigns.path, icon: <Campaigns /> },
-  { label: 'Users', href: routes.users.path, icon: <Users /> },
-  { label: 'Transactions', href: routes.transactions.path, icon: <Transaction /> },
-  { label: 'Team', href: routes.team.path, icon: <Team /> },
-  { label: 'Profile', href: routes.profile.path, icon: <Person /> },
+  { label: 'Given', href: routes.givens.path, icon: <Team /> },
+  // { label: 'Profile', href: routes.profile.path, icon: <Person /> },
 ];
 
 type SBRoute = {

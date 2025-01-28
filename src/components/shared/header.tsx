@@ -31,7 +31,7 @@ export function Header(props: IProps) {
           {back ? (
             <div
               role="none"
-              className="d-flex align-items-center cursor-pointer gap-2"
+              className="flex items-center cursor-pointer gap-2"
               onClick={back}
             >
               <ArrowLeft className="cursor-pointer" />
@@ -45,7 +45,7 @@ export function Header(props: IProps) {
           {childrenLeft}
         </div>
 
-        <div className="d-flex align-items-center">
+        <div className="flex items-center">
           {children}
           <Profile data={data} setShowSidebar={setShowSidebar} />
         </div>
