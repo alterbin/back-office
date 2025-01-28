@@ -1,3 +1,5 @@
+@import "../../assets//styles//main.scss";
+
 .app__products_catalogue {
   .table {
     thead th {
@@ -11,6 +13,7 @@
   padding: 20px;
   border-radius: 20px;
   min-height: 80vh;
+  width: 100%;
 }
 
 :root {

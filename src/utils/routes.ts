@@ -30,8 +30,8 @@ const routes = {
   dashboard: {
     path: '/dashboard',
   },
-  team: {
-    path: '/team',
+  givens: {
+    path: '/givens',
   },
   profile: {
     path: '/profile',

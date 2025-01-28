@@ -16,7 +16,7 @@ const BASE_URL = '/api/auth';
 const Login = (options = {}) => {
   const { push } = useRouter();
 
-  const basePath = routes.dashboard.path;
+  const basePath = routes.givens.path;
   const search = useSearchParams();
   const next = search.get('next');
 

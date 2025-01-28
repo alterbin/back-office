@@ -1,14 +1,19 @@
 import { User } from '../auth/types';
 
-export interface Team {
+export interface Given {
   id: string;
-  email: string;
-  firstName: string | null;
-  lastName: string | null;
-  onboarded: boolean;
+  address: string;
+  description: string;
+  name: string;
+  photos: string[];
+  location: string;
+  contact: string;
+  userId?: string;
+  interests?: string;
+  status?: string;
 }
-export interface Teams {
-  data: Team[];
+export interface Givens {
+  data: Given[];
   total: number;
 }
 
@@ -22,7 +27,7 @@ export interface ReadRequest {
 export interface InviteResponse {
   statusCode: number;
   description: string;
-  data: Team;
+  data: Given;
 }
 
 export interface Invite {

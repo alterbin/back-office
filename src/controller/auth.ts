@@ -75,7 +75,7 @@ export async function authGuard(request: Request) {
   } catch (error) {
     return NextResponse.json(
       { message: "Unauthorized: Invalid or expired token" },
-      { status: 403 }
+      { status: 401 }
     );
   }
 }

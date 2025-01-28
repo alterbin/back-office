@@ -1,3 +1,10 @@
+@import "../../../assets//styles//main.scss";
+
+.pagination{
+  display: flex;
+  gap: 4px;
+}
+
 .page-item.active .page-link {
   background-color: var(--red);
   color: #ffffff;
@@ -7,6 +14,9 @@
   height: 35px;
   width: 35px;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .page-link {

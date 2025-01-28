@@ -11,7 +11,7 @@ export const AddButton: React.FC<IProps> = ({ action, title }) => {
     <button
       type="button"
       onClick={action}
-      className="app__add__button d-flex my-auto"
+      className="app__add__button flex my-auto"
     >
       <div className="my-auto">
 

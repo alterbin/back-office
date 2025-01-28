@@ -2,6 +2,7 @@
 import ReactPaginate, { ReactPaginateProps } from 'react-paginate';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useQueryString } from '@/hooks/use-query';
+import "./styles.scss"
 
 interface IProps extends ReactPaginateProps {
   pageCount: number
