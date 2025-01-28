@@ -52,7 +52,7 @@ export function getLocalStorage<T>(key: string): T | null {
     return storedData ? (JSON.parse(storedData) as T) : null;
   } catch (error) {
     /* eslint-disable-next-line no-console */
-    console.error('Error parsing JSON from localStorage', error);
+    console.log('Error parsing JSON from localStorage', error);
     return null;
   }
 }

@@ -14,7 +14,7 @@ const configs = { dev, prod };
 const nodeEnv = process.env.NEXT_PUBLIC_ENV as 'dev' | 'prod';
 
 const config = {
-  tokenKey: 'tk-cdnio-cr',
+  tokenKey: 'tk-cdnio-cr-phila',
   user: 'pu-gye5-cl',
   profileKey: 'hgtak-fjjf-pir',
   ...(configs[nodeEnv] || dev),

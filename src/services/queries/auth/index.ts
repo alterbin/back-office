@@ -11,7 +11,7 @@ import {
   LoginResponse,
 } from './types';
 
-const BASE_URL = '/v1/auth';
+const BASE_URL = '/api/auth';
 
 const Login = (options = {}) => {
   const { push } = useRouter();
@@ -27,10 +27,8 @@ const Login = (options = {}) => {
     onSuccess: (data: LoginResponse) => {
       toast.success(data.description);
       saveLocalStorage(config.tokenKey, data.data.accessToken);
-      if (!data.data.user.onboarded) {
-        saveLocalStorage(config.user, data.data.user);
-        push(routes.auth.onboard.path);
-      } else {
+
+      if (data.data?.profile) {
         push(next || basePath);
       }
     },

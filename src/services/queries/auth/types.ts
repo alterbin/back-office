@@ -19,7 +19,7 @@ export interface LoginResponse {
   description: string;
   data: {
     accessToken: string;
-    user: User;
+    profile: User;
   };
 }
 

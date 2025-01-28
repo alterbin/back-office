@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "cockroachdb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -35,4 +35,13 @@ model given_interests {
   isAccepted      Boolean @default(false)
 
    @@unique([contact, givenId])
+}
+
+
+model admin_user {
+  id       String   @id @default(uuid())
+  email    String   @unique
+  password String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
