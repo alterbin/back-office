@@ -1,6 +1,45 @@
 import { error } from "console";
 import prisma from "../../../lib/prisma";
 import { NextResponse } from "next/server";
+import { authGuard } from "@/controller/auth";
+import { Prisma } from "@prisma/client";
+
+export async function GET(request: Request) {
+  const authError = await authGuard(request);
+  if (authError) return authError;
+
+  const url = new URL(request.url);
+  const page = parseInt(url.searchParams.get("page") || "1", 10);
+  const take = parseInt(url.searchParams.get("take") || "10", 10);
+  const order = url.searchParams.get("order") === "asc" ? "asc" : "desc";
+  const search = url.searchParams.get("search") || "";
+  const skip = (page - 1) * take;
+
+  const where: Prisma.given_interestsWhereInput = search
+    ? {
+        OR: [
+          { note: { contains: search, mode: "insensitive" } },
+          { contact: { contains: search, mode: "insensitive" } },
+          { shippingAddress: { contains: search, mode: "insensitive" } },
+        ],
+      }
+    : {};
+
+  const [total, data] = await Promise.all([
+    prisma.given_interests.count({ where }),
+    prisma.given_interests.findMany({
+      where,
+      skip,
+      take,
+      orderBy: { note: order },
+    }),
+  ]);
+  return NextResponse.json({
+    total,
+    data,
+    message: "Given Interests fetched successfully",
+  });
+}
 
 export async function POST(request: Request) {
   try {

@@ -1,29 +1,33 @@
-import React from 'react';
+import React from "react";
 import {
-  Home, Person, Team, Users, Transaction,
+  Home,
+  Person,
+  Team,
+  Users,
+  Transaction,
   Campaigns,
-} from '../components/svgs';
-import routes from './routes';
+} from "../components/svgs";
+import routes from "./routes";
 
 export const metaData = {
-  siteName: 'Chop creat8 Admin',
-  url: '',
+  siteName: "Philan Admin",
+  url: "",
   geo: {
-    placeName: 'Lagos',
-    position: '6.5474147;3.3639306',
-    region: 'NG',
+    placeName: "Lagos",
+    position: "6.5474147;3.3639306",
+    region: "NG",
   },
-  title: "Chopcr8 | Admin' Portal",
-  description: 'An effective platform to manage digital influencer activities across Africa.',
-  image: '',
-  keywords: 'admin, chopcreate8, admin users, actist, musician, influencers',
+  title: "Philan | Admin' Portal",
+  description:
+    "An effective platform to manage the activities of people who are willing to help others by giving out needs across Africa.",
+  image: "",
+  keywords:
+    "admin, philan, admin users, philantropist, givens, giving, helping hands",
 };
 
-const dbRoutes = routes.dashboard;
-
 const getAdminRoutes = () => [
-  { label: 'Given', href: routes.givens.path, icon: <Team /> },
-  // { label: 'Profile', href: routes.profile.path, icon: <Person /> },
+  { label: "Given", href: routes.givens.path, icon: <Team /> },
+  { label: "Interest", href: routes.interest.path, icon: <Person /> },
 ];
 
 type SBRoute = {
@@ -39,12 +43,12 @@ export const useSidebarRoutes = (): SBRoute[] => {
 
 const routesExtras = [
   {
-    label: 'Disputes',
-    href: routes.campaigns.disputes.path,
+    label: "Disputes",
+    href: routes.users.path,
     icon: <Campaigns />,
   },
   {
-    label: 'Influencers',
+    label: "Influencers",
     href: routes.users.influencers.path,
     icon: <Users />,
   },
@@ -53,7 +57,9 @@ const routesExtras = [
 export const GetRoutesMap = () => {
   const sidebarRoutes = useSidebarRoutes();
 
-  let routesMap = {} as { [key: string]: ReturnType<() => (typeof sidebarRoutes)[2]> };
+  let routesMap = {} as {
+    [key: string]: ReturnType<() => (typeof sidebarRoutes)[2]>;
+  };
 
   [...sidebarRoutes, ...routesExtras].forEach((item) => {
     routesMap = { ...routesMap, [item.href]: item };
@@ -62,12 +68,21 @@ export const GetRoutesMap = () => {
   return routesMap;
 };
 
-export const matchRoute = (pathname: string, routesMap: { [key: string]: any }) => {
-  return Object.keys(routesMap).find((route) => pathname.includes(route)) || '' as string;
+export const matchRoute = (
+  pathname: string,
+  routesMap: { [key: string]: any }
+) => {
+  return (
+    Object.keys(routesMap).find((route) => pathname.includes(route)) ||
+    ("" as string)
+  );
 };
 
-export const matchLastRoute = (pathname: string, routesMap: { [key: string]: any }) => {
-  let lastMatchedRoute: string = '';
+export const matchLastRoute = (
+  pathname: string,
+  routesMap: { [key: string]: any }
+) => {
+  let lastMatchedRoute: string = "";
 
   Object.keys(routesMap).forEach((route) => {
     if (pathname.includes(route)) {
@@ -79,6 +94,6 @@ export const matchLastRoute = (pathname: string, routesMap: { [key: string]: any
 };
 
 export const genders = {
-  male: 'MALE',
-  female: 'FEMALE',
+  male: "MALE",
+  female: "FEMALE",
 };

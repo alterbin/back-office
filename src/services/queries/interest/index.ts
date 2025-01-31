@@ -70,7 +70,7 @@ const Del = () => {
   };
 };
 
-export const givenQueries = {
+export const interestQueries = {
   Read,
   Del,
 };

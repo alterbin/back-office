@@ -15,7 +15,7 @@ import {
   SearchInput,
   TableSkeleton,
 } from "@/components";
-import { givenQueries } from "@/services/queries";
+import { interestQueries } from "@/services/queries";
 import { Given } from "@/services/queries/givens/types";
 import { Remove } from "./sub-component";
 import "./styles.scss";
@@ -101,7 +101,7 @@ function MobileRow(props: Given & { index: number }) {
 function MobileRows() {
   const pageQueries = useQueries();
 
-  const { data: givens, isLoading } = givenQueries.Read(pageQueries);
+  const { data: givens, isLoading } = interestQueries.Read(pageQueries);
 
   return (
     <div className="app__table_mobile">
@@ -125,7 +125,7 @@ function MobileRows() {
 function Page() {
   const pageQueries = useQueries();
 
-  const { data: givens, isLoading } = givenQueries.Read(pageQueries);
+  const { data: givens, isLoading } = interestQueries.Read(pageQueries);
 
   const { setModals } = useModals();
 
