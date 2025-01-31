@@ -45,7 +45,7 @@ export function Profile(props: IProps) {
 
       {isSidebar && (
         <button type="button" onClick={logout} className=" flex gap-3 bg-transparent border-0">
-          <span className="text-white ms-3">Logout</span>
+          <span className="text-white ms-3 font-semibold">Logout</span>
           <LogOut className="cursor-pointer ms-1 my-auto" />
         </button>
       )}

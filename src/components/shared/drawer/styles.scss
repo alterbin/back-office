@@ -1,3 +1,5 @@
+@import "../../../assets/styles/main.scss";
+
 .app__drawer__modal_backdrop {
   background: rgba(0, 0, 0, 0.6);
   position: fixed;
@@ -7,7 +9,7 @@
   height: 100%;
   width: 100%;
 
-  @include screen('xl', true) {
+  @include screen("xl", true) {
     display: none;
   }
 }
