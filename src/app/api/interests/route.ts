@@ -1,4 +1,3 @@
-import { error } from "console";
 import prisma from "../../../lib/prisma";
 import { NextResponse } from "next/server";
 import { authGuard } from "@/controller/auth";

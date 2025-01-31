@@ -45,6 +45,7 @@ function Row(props: Given) {
       <td className="text-center Articulat-Semibold">{item.name || "--"}</td>
       <td className="text-center tx_pink">{item.contact || "--"}</td>
       <td className="text-center">{item?.address || "--"}</td>
+      <td className="text-center">{item?.isFulfilled ? "Yes" : "No"}</td>
 
       <td className="text-center">
         <div className="flex gap-2 text-center">
@@ -85,6 +86,12 @@ function MobileRow(props: Given & { index: number }) {
             <div>
               <label className="app__table_mobile__label">Description</label>
               <p>{item?.description || "--"}</p>
+            </div>
+
+            <hr />
+            <div>
+              <label className="app__table_mobile__label">Fulfilled</label>
+              <p>{item?.isFulfilled || "--"}</p>
             </div>
 
             <hr />
@@ -150,6 +157,7 @@ function Page() {
                 <th>Name</th>
                 <th>Contact</th>
                 <th>Location</th>
+                <th>Fulfilled</th>
                 <th>Action</th>
               </tr>
             </thead>

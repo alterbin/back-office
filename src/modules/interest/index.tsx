@@ -14,11 +14,13 @@ import {
   Pagination,
   SearchInput,
   TableSkeleton,
+  Tooltip,
 } from "@/components";
 import { interestQueries } from "@/services/queries";
-import { Given } from "@/services/queries/givens/types";
 import { Remove } from "./sub-component";
 import "./styles.scss";
+import { Interest } from "@/services/queries/interest/types";
+import moment from "moment";
 
 const useQueries = () => {
   const searchParams = useSearchParams();
@@ -37,25 +39,34 @@ const useQueries = () => {
   );
 };
 
-function Row(props: Given) {
+function Row(props: Interest) {
   const { ...item } = props;
 
   return (
     <tr>
-      <td className="text-center Articulat-Semibold">{item.name || "--"}</td>
-      <td className="text-center tx_pink">{item.contact || "--"}</td>
-      <td className="text-center">{item?.address || "--"}</td>
-
+      <td className="text-center Articulat-Semibold">{item.contact || "--"}</td>
+      <td className="text-center tx_pink">
+        <Tooltip tooltip={item.note}>
+          <div
+            className="w-100"
+            style={{ maxWidth: 300, whiteSpace: "nowrap" }}
+          >
+            <span className="text-ellipsis">{item.note || "--"}</span>
+          </div>
+        </Tooltip>
+      </td>
+      <td className="text-center">{item?.shippingAddress || "--"}</td>
+      <td className="text-center">{item?.isAccepted ? "Yes" : "No"}</td>
       <td className="text-center">
-        <div className="flex gap-2 text-center">
-          <Remove {...item} />
-        </div>
+        {item?.createdAt
+          ? moment(item?.createdAt).format("MMM D, YYYY [at] h:mma")
+          : "--"}
       </td>
     </tr>
   );
 }
 
-function MobileRow(props: Given & { index: number }) {
+function MobileRow(props: Interest & { index: number }) {
   const { index, ...item } = props;
 
   return (
@@ -65,32 +76,42 @@ function MobileRow(props: Given & { index: number }) {
           <DisclosureButton className="w-full text-left p-3 bg-gray-100 rounded-md">
             <div className="app__friends__table__person">
               <h5 className="app__friends__table__person__h5 Articulat-Semibold">
-                {item.name || "--"}
+                {item.contact || "--"}
               </h5>
             </div>
           </DisclosureButton>
           <DisclosurePanel className="p-4 bg-white rounded-md shadow-sm">
             <div>
-              <label className="app__table_mobile__label">Contact</label>
-              <p>{item.contact || "--"}</p>
+              <label className="app__table_mobile__label">Note</label>
+              <p>{item.note || "--"}</p>
             </div>
 
             <hr />
             <div>
-              <label className="app__table_mobile__label">Location</label>
-              <p>{item?.location || "--"}</p>
+              <label className="app__table_mobile__label">
+                Shipping Address
+              </label>
+              <p>{item?.shippingAddress || "--"}</p>
             </div>
 
             <hr />
             <div>
-              <label className="app__table_mobile__label">Description</label>
-              <p>{item?.description || "--"}</p>
+              <label className="app__table_mobile__label">Created</label>
+              <p>
+                {item?.createdAt
+                  ? moment(item?.createdAt).format("MMM D, YYYY [at] h:mma")
+                  : "--"}
+              </p>
+            </div>
+            <hr />
+            <div>
+              <label className="app__table_mobile__label">Accepted</label>
+              <p>{item?.isAccepted ? "Yes" : "No"}</p>
             </div>
 
             <hr />
 
             <div className="flex gap-2" />
-            <Remove {...item} />
           </DisclosurePanel>
         </div>
       )}
@@ -129,7 +150,7 @@ function Page() {
 
   const { setModals } = useModals();
 
-  const handleModalShow = (record: Given) => {
+  const handleModalShow = (record: Interest) => {
     setModals((prev) => ({ ...prev, show: true, record }));
   };
 
@@ -147,10 +168,11 @@ function Page() {
           <table className="app__admin__table table">
             <thead>
               <tr>
-                <th>Name</th>
                 <th>Contact</th>
-                <th>Location</th>
-                <th>Action</th>
+                <th>Note</th>
+                <th>Address</th>
+                <th>Accepted</th>
+                <th>Created</th>
               </tr>
             </thead>
 

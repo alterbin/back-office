@@ -1,19 +1,18 @@
-import { User } from '../auth/types';
+import { User } from "../auth/types";
 
-export interface Given {
+export interface Interest {
   id: string;
-  address: string;
-  description: string;
-  name: string;
-  photos: string[];
-  location: string;
+  note: string;
   contact: string;
-  userId?: string;
-  interests?: string;
-  status?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  shippingAddress: string;
+  givenId: string;
+  isAccepted: boolean;
 }
-export interface Givens {
-  data: Given[];
+
+export interface Interests {
+  data: Interest[];
   total: number;
 }
 
@@ -22,12 +21,6 @@ export interface ReadRequest {
   order?: string;
   take?: number;
   searchTerm?: string | string[] | undefined;
-}
-
-export interface InviteResponse {
-  statusCode: number;
-  description: string;
-  data: Given;
 }
 
 export interface Invite {

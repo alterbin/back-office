@@ -78,32 +78,6 @@ export async function POST(request: Request) {
   }
 }
 
-// export async function DELETE(request: Request) {
-//   try {
-//     const url = new URL(request.url);
-//     const id = url.searchParams.get("id");
-
-//     if (!id) {
-//       return NextResponse.json(
-//         { error: "'id' parameter is required " },
-//         { status: 400 }
-//       );
-//     }
-
-//     const deletedPost = await prisma.post.delete({
-//       where: { id: Number(id) },
-//     });
-
-//     return NextResponse.json(deletedPost, { status: 200 });
-//   } catch (error: any) {
-//     console.error("Error deleting post:", error);
-//     return NextResponse.json(
-//       { error: "Failed to delete post", details: error.message },
-//       { status: 500 }
-//     );
-//   }
-// }
-
 export async function DELETE(request: Request) {
   const authError = await authGuard(request);
   if (authError) return authError;

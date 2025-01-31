@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { useQueryString } from "@/hooks/use-query";
 import api from "../../api";
 import queryKey from "./keys";
-import { OnboardResponse, ReadRequest, Givens } from "./types";
+import { OnboardResponse, ReadRequest, Interest, Interests } from "./types";
 
 const BASE_URL = "/api/interests";
 
@@ -32,7 +32,7 @@ const Read = (
 
   return {
     ...response,
-    data: response?.data as Givens,
+    data: response?.data as Interests,
   };
 };
 
