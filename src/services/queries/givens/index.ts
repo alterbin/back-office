@@ -5,6 +5,7 @@ import { useQueryString } from "@/hooks/use-query";
 import api from "../../api";
 import queryKey from "./keys";
 import { OnboardResponse, ReadRequest, Givens } from "./types";
+import { Interests } from "../interest/types";
 
 const BASE_URL = "/api/given";
 
@@ -70,7 +71,37 @@ const Del = () => {
   };
 };
 
+const ReadInterest = (
+  options: ReadRequest & {id: string} = {
+    page: 1,
+    order: "ASC",
+    take: 10,
+    searchTerm: "",
+    id: ""
+  }
+) => {
+  const { page, order, take, searchTerm, id } = options;
+  const url = `${BASE_URL}/interests?page=${page}&order=${order}&take=${take}&search=${searchTerm}&id=${id}`;
+
+  const response = useQuery({
+    queryFn: () => api.get({ url }),
+    queryKey: [queryKey.read, id],
+    enabled: !!id,
+    ...options,
+    refetchOnMount: "always",
+  });
+  if (response.isError) {
+    errorToast((response?.error as any)?.response?.data?.message);
+  }
+
+  return {
+    ...response,
+    data: response?.data as Interests,
+  };
+};
+
 export const givenQueries = {
   Read,
   Del,
+  ReadInterest,
 };

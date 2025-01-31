@@ -32,6 +32,11 @@ export async function GET(request: Request) {
       skip,
       take,
       orderBy: { name: order },
+      include: {
+        _count: {
+          select: { interests: true },
+        },
+      },
     }),
   ]);
   return NextResponse.json({
