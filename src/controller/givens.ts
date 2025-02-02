@@ -7,8 +7,8 @@ export async function fetchGivens(
   take: number,
   order: "asc" | "desc",
   search: string,
-  toDate?: string,
-  fromDate?: string
+  fromDate?: string,
+  toDate?: string
 ) {
   const skip = (page - 1) * take;
 
