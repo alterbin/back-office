@@ -1,15 +1,16 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
 } from "@headlessui/react";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ModalsProvider, useModals } from "@/contexts/modals";
 import {
   AddButton,
+  DateRangePicker,
   MobileSkeleton,
   Pagination,
   SearchInput,
@@ -21,6 +22,8 @@ import { Remove } from "./sub-component";
 import "./styles.scss";
 import { useActions } from "./sub-component/actions";
 import { Actionables } from "@/components/shared/actionables";
+import moment from "moment";
+import { useQueryString } from "@/hooks/use-query";
 
 const useQueries = () => {
   const searchParams = useSearchParams();
@@ -148,7 +151,7 @@ function Page() {
     <div className="app__dashboard_layout__main_px app_home app__products_catalogue">
       <div className="flex justify-between">
         <SearchInput />
-        {/* <AddButton title="Invite Admin" action={handleModalShow} /> */}
+        <DateRangePicker />
       </div>
 
       {isLoading ? (

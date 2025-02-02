@@ -8,4 +8,5 @@ export { Pagination } from "./pagination";
 export { Status } from "./status-box";
 export { Badge } from "./badge";
 export { Tooltip } from "./tooltip";
+export { DateRangePicker } from "./date-range-picker";
 export { TableSkeleton, MobileSkeleton } from "./table-skeleton";
