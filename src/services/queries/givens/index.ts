@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { useQueryString } from "@/hooks/use-query";
 import api from "../../api";
 import queryKey from "./keys";
-import { OnboardResponse, ReadRequest, Givens, Given } from "./types";
+import { ReadRequest, Givens, Given } from "./types";
 import { Interests } from "../interest/types";
 import { useModals } from "@/contexts/modals";
 
@@ -16,10 +16,12 @@ const Read = (
     order: "ASC",
     take: 10,
     searchTerm: "",
+    fromDate: "",
+    toDate: "",
   }
 ) => {
-  const { page, order, take, searchTerm } = options;
-  const url = `${BASE_URL}?page=${page}&order=${order}&take=${take}&search=${searchTerm}`;
+  const { page, order, take, searchTerm, toDate, fromDate } = options;
+  const url = `${BASE_URL}?page=${page}&order=${order}&take=${take}&search=${searchTerm}${fromDate && toDate && `&fromDate=${fromDate}&toDate=${toDate}`}`;
   const { asPath } = useQueryString();
 
   const response = useQuery({
@@ -44,7 +46,7 @@ const Del = () => {
   const { mutate, ...response } = useMutation({
     mutationFn: api.delete,
     mutationKey: [queryKey.delete],
-    onSuccess: async (data: OnboardResponse) => {
+    onSuccess: async (data: any) => {
       successToast(data?.description || "Success");
       queryClient.invalidateQueries({
         queryKey: [queryKey.read],
@@ -110,7 +112,7 @@ const Put = (options = {}) => {
     mutationKey: [queryKey.patch],
     ...options,
     onSuccess: async (data: any) => {
-      successToast(data.description);
+      successToast(data.message);
       await queryClient.invalidateQueries({ queryKey: [queryKey.read] });
       setModals((old) => ({ ...old, edit: false }));
     },

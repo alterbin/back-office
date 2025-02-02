@@ -1,8 +1,11 @@
-import { Prisma } from "@prisma/client";
-import prisma from "../../../lib/prisma";
-
 import { NextResponse } from "next/server";
 import { authGuard } from "@/controller/auth";
+import {
+  createGiven,
+  deleteGivens,
+  fetchGivens,
+  updateGiven,
+} from "@/controller/givens";
 
 export async function GET(request: Request) {
   const authError = await authGuard(request);
@@ -13,37 +16,28 @@ export async function GET(request: Request) {
   const take = parseInt(url.searchParams.get("take") || "10", 10);
   const order = url.searchParams.get("order") === "asc" ? "asc" : "desc";
   const search = url.searchParams.get("search") || "";
-  const skip = (page - 1) * take;
+  const fromDate = url.searchParams.get("fromDate") || "";
+  const toDate = url.searchParams.get("toDate") || "";
 
-  const where: Prisma.givensWhereInput = search
-    ? {
-        OR: [
-          { name: { contains: search, mode: "insensitive" } },
-          { contact: { contains: search, mode: "insensitive" } },
-          { address: { contains: search, mode: "insensitive" } },
-        ],
-      }
-    : {};
-
-  const [total, data] = await Promise.all([
-    prisma.givens.count({ where }),
-    prisma.givens.findMany({
-      where,
-      skip,
+  try {
+    const result = await fetchGivens(
+      page,
       take,
-      orderBy: { name: order },
-      include: {
-        _count: {
-          select: { interests: true },
-        },
-      },
-    }),
-  ]);
-  return NextResponse.json({
-    total,
-    data,
-    message: "Givens fetched successfully",
-  });
+      order,
+      search,
+      fromDate,
+      toDate
+    );
+    return NextResponse.json({
+      ...result,
+      message: "Givens fetched successfully",
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to fetch givens" },
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(request: Request) {
@@ -52,32 +46,45 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { name, description, photos, address, contact } = body;
-
-    const given = await prisma.givens.create({
-      data: {
-        name,
-        description,
-        photos: photos || [],
-        address,
-        contact,
-      },
-    });
+    const given = await createGiven(body);
 
     return NextResponse.json(
       {
         data: given,
-        description: "Created Successfully",
+        message: "Created successfully",
       },
-      {
-        status: 201,
-        statusText: "Post Created Successfully",
-      }
+      { status: 201 }
     );
   } catch (error) {
-    console.error("Error creating post:", error);
+    console.error("Error creating given:", error);
     return NextResponse.json(
-      { error: "Failed to create given. Please try again." },
+      { error: "Failed to create given" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PATCH(request: Request) {
+  const authError = await authGuard(request);
+  if (authError) return authError;
+
+  try {
+    const body = await request.json();
+    if (!body.id) {
+      return NextResponse.json(
+        { message: "Missing required parameter: id" },
+        { status: 400 }
+      );
+    }
+
+    const updatedGiven = await updateGiven(body.id, body);
+    return NextResponse.json(
+      { data: updatedGiven, message: "Updated successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to update given" },
       { status: 500 }
     );
   }
@@ -88,17 +95,11 @@ export async function DELETE(request: Request) {
   if (authError) return authError;
 
   try {
-    const deletedPosts = await prisma.givens.deleteMany({
-      where: {
-        OR: [{ name: "" }],
-      },
-    });
-
+    const deletedPosts = await deleteGivens();
     return NextResponse.json(deletedPosts, { status: 200 });
-  } catch (error: any) {
-    console.error("Error deleting posts:", error);
+  } catch (error) {
     return NextResponse.json(
-      { error: "Failed to delete posts", details: error.message },
+      { error: "Failed to delete posts" },
       { status: 500 }
     );
   }

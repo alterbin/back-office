@@ -39,6 +39,7 @@ export function EditModal() {
     onSubmit: ({ ...values }: PostSchema) => {
       mutate({
         ...values,
+        id: String(given?.id)
       });
     },
   };

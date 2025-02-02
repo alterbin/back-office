@@ -30,6 +30,8 @@ const useQueries = () => {
 
   const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
   const searchTerm = searchParams.get("searchTerm") || "";
+  const fromDate = searchParams.get("from") || "";
+  const toDate = searchParams.get("to") || "";
 
   return useMemo(
     () => ({
@@ -37,8 +39,10 @@ const useQueries = () => {
       order: "ASC",
       take: 10,
       searchTerm,
+      fromDate,
+      toDate
     }),
-    [page, searchTerm]
+    [page, searchTerm, fromDate, toDate]
   );
 };
 

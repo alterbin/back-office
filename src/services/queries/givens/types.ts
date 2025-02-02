@@ -1,4 +1,4 @@
-import { User } from '../auth/types';
+import { User } from "../auth/types";
 
 export interface Given {
   id: string;
@@ -13,6 +13,7 @@ export interface Given {
   userId?: string;
   interests?: string;
   status?: string;
+  hidden: boolean;
 }
 export interface Givens {
   data: Given[];
@@ -24,6 +25,8 @@ export interface ReadRequest {
   order?: string;
   take?: number;
   searchTerm?: string | string[] | undefined;
+  fromDate?: string;
+  toDate?: string;
 }
 
 export interface InviteResponse {
@@ -32,19 +35,10 @@ export interface InviteResponse {
   data: Given;
 }
 
-export interface Invite {
-  email: string;
-  callbackUrl: string;
-}
-
-export interface IOnboard {
-  firstName: string;
-  lastName: string;
-  newPassword: string;
-}
-
-export interface OnboardResponse {
-  statusCode: number;
+export type CreateGivenDto = {
+  name: string;
   description: string;
-  data: User;
-}
+  photos: string[];
+  address: string;
+  contact: string;
+};
