@@ -18,7 +18,7 @@ import {
 } from "@/components";
 import { givenQueries } from "@/services/queries";
 import { Given } from "@/services/queries/givens/types";
-import { Remove } from "./sub-component";
+import { EditModal, Remove } from "./sub-component";
 import "./styles.scss";
 import { useActions } from "./sub-component/actions";
 import { Actionables } from "@/components/shared/actionables";
@@ -51,13 +51,12 @@ function Row(props: Given) {
       <td className="text-center Articulat-Semibold">{item.name || "--"}</td>
       <td className="text-center tx_pink">{item.contact || "--"}</td>
       <td className="text-center">{item?.address || "--"}</td>
+      <td className="text-center">{item?.rank || "--"}</td>
       <td className="text-center">{item?.isFulfilled ? "Yes" : "No"}</td>
 
       <td className="text-center">
-        <div className="flex gap-2 text-center">
-          {/* <Remove {...item} /> */}
-          <Actionables actions={getActions()} />
-        </div>
+        {/* <Remove {...item} /> */}
+        <Actionables actions={getActions()} />
       </td>
     </tr>
   );
@@ -93,6 +92,11 @@ function MobileRow(props: Given & { index: number }) {
             <div>
               <label className="app__table_mobile__label">Description</label>
               <p>{item?.description || "--"}</p>
+            </div>
+            <hr />
+            <div>
+              <label className="app__table_mobile__label">Rank</label>
+              <p>{item?.rank || "--"}</p>
             </div>
 
             <hr />
@@ -141,7 +145,7 @@ function Page() {
 
   const { data: givens, isLoading } = givenQueries.Read(pageQueries);
 
-  const { setModals } = useModals();
+  const { modals, setModals } = useModals();
 
   const handleModalShow = (record: Given) => {
     setModals((prev) => ({ ...prev, show: true, record }));
@@ -164,6 +168,7 @@ function Page() {
                 <th>Name</th>
                 <th>Contact</th>
                 <th>Location</th>
+                <th>Rank</th>
                 <th>Fulfilled</th>
                 <th>Action</th>
               </tr>
@@ -192,6 +197,7 @@ function Page() {
       <div className="block md:hidden mt-3">
         <MobileRows />
       </div>
+      {modals.edit && <EditModal />}
     </div>
   );
 }

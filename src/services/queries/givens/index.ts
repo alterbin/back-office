@@ -4,8 +4,9 @@ import toast from "react-hot-toast";
 import { useQueryString } from "@/hooks/use-query";
 import api from "../../api";
 import queryKey from "./keys";
-import { OnboardResponse, ReadRequest, Givens } from "./types";
+import { OnboardResponse, ReadRequest, Givens, Given } from "./types";
 import { Interests } from "../interest/types";
+import { useModals } from "@/contexts/modals";
 
 const BASE_URL = "/api/given";
 
@@ -100,8 +101,38 @@ const ReadInterest = (
   };
 };
 
+const Put = (options = {}) => {
+  const queryClient = useQueryClient();
+  const { setModals } = useModals();
+
+  const { mutate, ...response } = useMutation({
+    mutationFn: api.patch,
+    mutationKey: [queryKey.patch],
+    ...options,
+    onSuccess: async (data: any) => {
+      successToast(data.description);
+      await queryClient.invalidateQueries({ queryKey: [queryKey.read] });
+      setModals((old) => ({ ...old, edit: false }));
+    },
+    onError: (err: any) => {
+      if (err.response && err.response.data && err.response.data.message) {
+        errorToast(err.response.data.message);
+      } else {
+        errorToast("Something went wrong");
+      }
+    },
+  });
+  return {
+    ...response,
+    mutate: (body: Partial<Given>) => {
+      mutate({ url: `${BASE_URL}`, body: { ...body } });
+    },
+  };
+};
+
 export const givenQueries = {
   Read,
   Del,
   ReadInterest,
+  Put,
 };

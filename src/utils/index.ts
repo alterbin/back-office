@@ -1,4 +1,5 @@
 import { Profile } from '@/services/queries/profile/types';
+export {zodToFormikAdapter} from './zodToFormikAdapter'
 
 export const getPageHeading = (pathname: string) => {
   const pageName = pathname.substring(pathname.lastIndexOf('/') + 1);

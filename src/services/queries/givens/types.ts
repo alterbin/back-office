@@ -8,6 +8,7 @@ export interface Given {
   photos: string[];
   location: string;
   contact: string;
+  rank: number;
   isFulfilled: boolean;
   userId?: string;
   interests?: string;
