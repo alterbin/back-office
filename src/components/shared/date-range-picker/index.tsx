@@ -62,8 +62,8 @@ export const DateRangePicker: React.FC<CustomDateRangePickerProps> = ({
 
     if (selectedOption === "custom") {
       handleOpen();
-      setCustomFromDate(customOptionAdded ? fromDate : "");
-      setCustomToDate(customOptionAdded ? toDate : "");
+      setCustomFromDate(fromDate);
+      setCustomToDate(toDate);
       return;
     }
 
@@ -81,17 +81,24 @@ export const DateRangePicker: React.FC<CustomDateRangePickerProps> = ({
     handleClose();
   };
 
+  const formatKey = (key: string): string => {
+    return key
+      .replace(/([A-Z])/g, " $1")
+      .trim()
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+  };
+
   const dateOptions = Object.entries(dateRanges).map(([key, range]) => ({
-    label: `${key.replace(/([A-Z])/g, " $1").trim()} | ${range[0].format(
-      "MMM D"
-    )} - ${range[1].format("MMM D, YYYY")}`,
+    label: `${formatKey(key)} | ${range[0].format("MMM D")} - ${range[1].format(
+      "MMM D, YYYY"
+    )}`,
     value: key,
   }));
 
   useEffect(() => {
     const query = createQueryStrings({ to: toDate, from: fromDate });
     push(`${pathname}?${query}`);
-  }, [dateRangeOption]);
+  }, [toDate, fromDate]);
 
   return (
     <div>
@@ -107,34 +114,31 @@ export const DateRangePicker: React.FC<CustomDateRangePickerProps> = ({
         isOpen={modals.show}
         onClose={handleClose}
         title="Set Date Range"
+        size="sm"
       >
-        <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex items-center justify-center min-h-full p-4">
-            <div className="bg-white p-6 rounded-lg shadow-xl">
-              <div className="mt-4">
-                <TextInput
-                  label="Start Date"
-                  type="date"
-                  value={customFromDate}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setCustomFromDate(e.target.value)
-                  }
-                />
-                <TextInput
-                  label="End Date"
-                  type="date"
-                  value={customToDate}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setCustomToDate(e.target.value)
-                  }
-                  min={customFromDate}
-                />
-              </div>
-              <div className="mt-4 flex justify-end gap-2">
-                <Button title="Apply" onClick={handleApplyClick} />
-                <Button title="Cancel" onClick={handleClose} />
-              </div>
-            </div>
+        <div className="w-full">
+          <div className="mt-4 flex flex-col gap-3">
+            <TextInput
+              label="Start Date"
+              type="date"
+              value={customFromDate}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setCustomFromDate(e.target.value)
+              }
+            />
+            <TextInput
+              label="End Date"
+              type="date"
+              value={customToDate}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setCustomToDate(e.target.value)
+              }
+              min={customFromDate}
+            />
+          </div>
+          <div className="mt-4 flex justify-end gap-2">
+            <Button title="Cancel" variant="outlined" onClick={handleClose} />
+            <Button title="Apply" onClick={handleApplyClick} />
           </div>
         </div>
       </ModalContainer>

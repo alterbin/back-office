@@ -13,6 +13,7 @@ type ModalProps = {
   title?: string;
   message?: string;
   children?: React.ReactNode;
+  size?: "sm" | "md" | "lg";
 };
 
 export const ModalContainer: React.FC<ModalProps> = ({
@@ -21,6 +22,7 @@ export const ModalContainer: React.FC<ModalProps> = ({
   title,
   message,
   children,
+  size = "lg",
 }) => {
   const cancelButtonRef = useRef(null);
 
@@ -41,7 +43,7 @@ export const ModalContainer: React.FC<ModalProps> = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-[#0C1F36] backdrop-blur-[6px] bg-opacity-60 transition-opacity" />
+          <div className="fixed inset-0 bg-black backdrop-blur-[4px] bg-opacity-60 transition-opacity" />
         </TransitionChild>
 
         <div className="fixed inset-0 z-20 overflow-y-auto">
@@ -55,11 +57,17 @@ export const ModalContainer: React.FC<ModalProps> = ({
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <DialogPanel className="relative w-full transform overflow-hidden rounded-[4px] bg-[var(--foreground)] text-left transition-all sm:my-8 sm:w-full md:max-w-xl">
+              <DialogPanel
+                className={`relative w-full transform overflow-hidden rounded-[4px] bg-white text-left transition-all sm:my-8 sm:w-full 
+                ${size === "md" ? "md:max-w-md" : ""}
+                ${size === "sm" ? "md:max-w-sm" : ""}
+                ${size === "lg" ? "md:max-w-xl" : ""}
+                `}
+              >
                 <div
-                  className={`relative flex justify-between items-center gap-8 p-4 md:p-6 border-b border-text_color`}
+                  className={`relative flex justify-between items-center gap-8 p-2 md:p-4 border-b border-text_color`}
                 >
-                  <h2 className="text-text_color font-bold text-xl lg:text-2xl">
+                  <h2 className="text-text_color font-bold text-lg lg:text-xl">
                     {title || "Title"}
                   </h2>
                   <button
@@ -80,8 +88,8 @@ export const ModalContainer: React.FC<ModalProps> = ({
                     </svg>
                   </button>
                 </div>
-                <div className="bg-[var(--foreground)] pt-4 px-4 md:px-6 md:pt-6 text-text_color py-20 items-center flex justify-center">
-                  {children || message} 
+                <div className="bg-white px-4 md:px-6 text-text_color py-5 items-center flex justify-center">
+                  {children || message}
                 </div>
               </DialogPanel>
             </TransitionChild>
