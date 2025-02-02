@@ -24,16 +24,17 @@ export function AcceptInterestModal() {
       isOpen={modals.edit}
       onClose={handleClose}
       title="Given Details"
+      size="sm"
     >
       <div className="flex flex-col mx-auto sm:w-[450px] lg:w-[450px] w-full ">
-        <div className="flex flex-col gap-5 items-center text-center">
-          <h3>Are you sure?</h3>
+        <div className="flex flex-col gap-5">
+          <h3 className="font-bold text-left">Are you sure?</h3>
           <p>
             Proceeding will accept this interest and mark the given as fulfiled
           </p>
         </div>
 
-        <div className=" flex gap-4 mt-5">
+        <div className=" flex gap-4 mt-5 justify-end">
           <Button type="button" onClick={handleClose} variant="outlined">
             Cancel
           </Button>

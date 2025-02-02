@@ -10,6 +10,7 @@ import { useSearchParams } from "next/navigation";
 import { ModalsProvider, useModals } from "@/contexts/modals";
 import {
   AddButton,
+  DateRangePicker,
   MobileSkeleton,
   Pagination,
   SearchInput,
@@ -28,6 +29,8 @@ const useQueries = () => {
 
   const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
   const searchTerm = searchParams.get("searchTerm") || "";
+  const fromDate = searchParams.get("from") || "";
+  const toDate = searchParams.get("to") || "";
 
   return useMemo(
     () => ({
@@ -35,8 +38,10 @@ const useQueries = () => {
       order: "ASC",
       take: 10,
       searchTerm,
+      fromDate,
+      toDate,
     }),
-    [page, searchTerm]
+    [page, searchTerm, fromDate, toDate]
   );
 };
 
@@ -175,7 +180,7 @@ function Page() {
     <div className="app__dashboard_layout__main_px app_home app__products_catalogue">
       <div className="flex justify-between">
         <SearchInput />
-        {/* <AddButton title="Invite Admin" action={handleModalShow} /> */}
+         <DateRangePicker />
       </div>
 
       {isLoading ? (

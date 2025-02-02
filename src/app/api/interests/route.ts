@@ -4,6 +4,7 @@ import {
   createInterest,
   fetchGivenInterests,
   getQueryParams,
+  updateGivenInterest,
   validateInterestData,
 } from "@/controller/interests";
 
@@ -15,6 +16,7 @@ export async function GET(request: Request) {
   if (authError) return authError;
 
   const params = getQueryParams(new URL(request.url));
+  console.log('params', params)
   const { total, data } = await fetchGivenInterests(params as any);
 
   return NextResponse.json({
@@ -61,6 +63,22 @@ export async function POST(request: Request) {
       );
     }
 
+    return NextResponse.json(
+      { error: "An unexpected error occurred while processing your request." },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PATCH(request: Request) {
+  try {
+    const body = await request.json();
+    const { id, isAccepted } = body;
+
+    const result = await updateGivenInterest(id, isAccepted);
+    return NextResponse.json(result, { status: result.status });
+  } catch (error: any) {
+    console.error("Error updating interest:", error);
     return NextResponse.json(
       { error: "An unexpected error occurred while processing your request." },
       { status: 500 }

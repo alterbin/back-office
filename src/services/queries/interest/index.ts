@@ -5,6 +5,7 @@ import { useQueryString } from "@/hooks/use-query";
 import api from "../../api";
 import queryKey from "./keys";
 import { OnboardResponse, ReadRequest, Interest, Interests } from "./types";
+import { useModals } from "@/contexts/modals";
 
 const BASE_URL = "/api/interests";
 
@@ -14,10 +15,12 @@ const Read = (
     order: "ASC",
     take: 10,
     searchTerm: "",
+    fromDate: "",
+    toDate: ""
   }
 ) => {
-  const { page, order, take, searchTerm } = options;
-  const url = `${BASE_URL}?page=${page}&order=${order}&take=${take}&search=${searchTerm}`;
+  const { page, order, take, searchTerm, fromDate, toDate } = options;
+  const url = `${BASE_URL}?page=${page}&order=${order}&take=${take}&search=${searchTerm}${fromDate && toDate && `&fromDate=${fromDate}&toDate=${toDate}`}`;
   const { asPath } = useQueryString();
 
   const response = useQuery({
@@ -72,6 +75,7 @@ const Del = () => {
 
 const Accept = () => {
   const queryClient = useQueryClient();
+  const { setModals } = useModals();
 
   const { mutate, ...response } = useMutation({
     mutationFn: api.patch,
@@ -83,7 +87,7 @@ const Accept = () => {
         type: "all",
         exact: false,
       });
-      document.body.click();
+      setModals((old) => ({ ...old, show: false }));
     },
     onError: (err: any) => {
       if (err.response && err.response.data && err.response.data.message) {
@@ -97,7 +101,7 @@ const Accept = () => {
     ...response,
     mutate: (body: Partial<Interest>) => {
       mutate({
-        url: `${BASE_URL}/${body?.id}`,
+        url: `${BASE_URL}`,
         body: { ...body },
       });
     },

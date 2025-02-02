@@ -12,31 +12,65 @@ export function getQueryParams(url: URL) {
     take: parseInt(url.searchParams.get("take") || "10", 10),
     order: url.searchParams.get("order") === "asc" ? "asc" : "desc",
     search: url.searchParams.get("search") || "",
+    fromDate: url.searchParams.get("fromDate") || "",
+    toDate: url.searchParams.get("toDate") || "",
   };
 }
 
 /**
  * Builds the Prisma `where` filter for search
  */
-function buildWhereClause(search: string): Prisma.given_interestsWhereInput {
-  return search
-    ? {
-        OR: [
-          { note: { contains: search, mode: "insensitive" } },
-          { contact: { contains: search, mode: "insensitive" } },
-          { shippingAddress: { contains: search, mode: "insensitive" } },
-        ],
-      }
-    : {};
+function buildWhereClause(
+  search: string,
+  fromDate: string,
+  toDate: string
+): Prisma.given_interestsWhereInput {
+  return {
+    ...(search
+      ? {
+          OR: [
+            { note: { contains: search, mode: "insensitive" } },
+            { contact: { contains: search, mode: "insensitive" } },
+            { shippingAddress: { contains: search, mode: "insensitive" } },
+          ],
+        }
+      : {}),
+    ...(fromDate || toDate
+      ? {
+          createdAt: {
+            ...(fromDate ? { gte: new Date(fromDate) } : {}),
+            ...(toDate ? { lte: new Date(toDate) } : {}),
+          },
+        }
+      : {}),
+  };
 }
 
 /**
  * Fetches given interests with filtering and pagination
  */
 export async function fetchGivenInterests(params: GetRequest) {
-  const { page, take, order, search } = params;
+  const { page, take, order, search, toDate, fromDate } = params;
   const skip = (page - 1) * take;
-  const where = buildWhereClause(search);
+  const where: Prisma.given_interestsWhereInput = {
+    ...(search
+      ? {
+          OR: [
+            { note: { contains: search, mode: "insensitive" } },
+            { contact: { contains: search, mode: "insensitive" } },
+            { shippingAddress: { contains: search, mode: "insensitive" } },
+          ],
+        }
+      : {}),
+    ...(fromDate || toDate
+      ? {
+          createdAt: {
+            ...(fromDate ? { gte: new Date(fromDate) } : {}),
+            ...(toDate ? { lte: new Date(toDate) } : {}),
+          },
+        }
+      : {}),
+  };
 
   const [total, data] = await Promise.all([
     prisma.given_interests.count({ where }),
@@ -130,4 +164,36 @@ export async function createInterest(data: {
       givenId,
     },
   });
+}
+
+export async function updateGivenInterest(id: string, isAccepted: boolean) {
+  if (!id || typeof id !== "string") {
+    return { error: "Invalid or missing 'id'.", status: 400 };
+  }
+
+  // Find the interest record
+  const interest = await prisma.given_interests.findUnique({
+    where: { id },
+    select: { givenId: true, isAccepted: true },
+  });
+
+  if (!interest) {
+    return { error: "Interest record not found.", status: 404 };
+  }
+
+  // Update the interest
+  const updatedInterest = await prisma.given_interests.update({
+    where: { id },
+    data: { isAccepted },
+  });
+
+  // If isAccepted is changed to true, update the related given record
+  if (isAccepted === true && interest.isAccepted !== true) {
+    await prisma.givens.update({
+      where: { id: interest.givenId },
+      data: { isFulfilled: true },
+    });
+  }
+
+  return { data: updatedInterest, status: 200 };
 }

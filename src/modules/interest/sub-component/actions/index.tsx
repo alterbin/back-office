@@ -1,4 +1,4 @@
-import { Eye } from "@/components";
+import { Edit, Eye } from "@/components";
 import { ActionType } from "@/components/shared/actionables";
 import { useModals } from "@/contexts/modals";
 import { Interest } from "@/services/queries/interest/types";
@@ -24,6 +24,7 @@ export const useInterestActions = (data: Interest) => {
       {
         label: "Accept",
         onClick: () => handleViewDummy(data),
+        icon: <Edit stroke="#040622" width={16} height={16} />,
       },
     ];
 

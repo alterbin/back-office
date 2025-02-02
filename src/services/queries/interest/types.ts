@@ -23,6 +23,8 @@ export interface ReadRequest {
   order?: string;
   take?: number;
   searchTerm?: string | string[] | undefined;
+  fromDate?: string;
+  toDate?: string;
 }
 
 export interface Invite {
