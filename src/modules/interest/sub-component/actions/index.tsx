@@ -2,8 +2,6 @@ import { Eye } from "@/components";
 import { ActionType } from "@/components/shared/actionables";
 import { useModals } from "@/contexts/modals";
 import { Interest } from "@/services/queries/interest/types";
-import routes from "@/utils/routes";
-import { useRouter } from "next/navigation";
 
 export const useInterestActions = (data: Interest) => {
   const { setModals } = useModals();
@@ -13,7 +11,7 @@ export const useInterestActions = (data: Interest) => {
   };
 
   const handleViewDummy = (record: Interest) => {
-    setModals((old) => ({ ...old, show: true, record }));
+    setModals((old) => ({ ...old, edit: true, record }));
   };
 
   const getActions = (): ActionType[] => {
@@ -24,7 +22,7 @@ export const useInterestActions = (data: Interest) => {
         icon: <Eye stroke="#040622" width={16} height={16} />,
       },
       {
-        label: "Edit",
+        label: "Accept",
         onClick: () => handleViewDummy(data),
       },
     ];

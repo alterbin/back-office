@@ -17,7 +17,7 @@ import {
   Tooltip,
 } from "@/components";
 import { interestQueries } from "@/services/queries";
-import { ReadMoreModal, Remove, useInterestActions } from "./sub-component";
+import { AcceptInterestModal, ReadMoreModal, Remove, useInterestActions } from "./sub-component";
 import "./styles.scss";
 import { Interest } from "@/services/queries/interest/types";
 import moment from "moment";
@@ -218,6 +218,7 @@ function Page() {
         <MobileRows />
       </div>
       {modals?.show && <ReadMoreModal />}
+      {modals?.edit && <AcceptInterestModal />}
     </div>
   );
 }

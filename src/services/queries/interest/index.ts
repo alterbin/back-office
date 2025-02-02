@@ -70,7 +70,42 @@ const Del = () => {
   };
 };
 
+const Accept = () => {
+  const queryClient = useQueryClient();
+
+  const { mutate, ...response } = useMutation({
+    mutationFn: api.patch,
+    mutationKey: [queryKey.patch],
+    onSuccess: async (data: any) => {
+      successToast(data?.message || "Success");
+      queryClient.invalidateQueries({
+        queryKey: [queryKey.read],
+        type: "all",
+        exact: false,
+      });
+      document.body.click();
+    },
+    onError: (err: any) => {
+      if (err.response && err.response.data && err.response.data.message) {
+        toast.error(err.response.data.message);
+      } else {
+        toast.error("Something went wrong");
+      }
+    },
+  });
+  return {
+    ...response,
+    mutate: (body: Partial<Interest>) => {
+      mutate({
+        url: `${BASE_URL}/${body?.id}`,
+        body: { ...body },
+      });
+    },
+  };
+};
+
 export const interestQueries = {
   Read,
   Del,
+  Accept,
 };
