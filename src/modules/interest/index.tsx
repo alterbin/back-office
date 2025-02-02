@@ -17,10 +17,11 @@ import {
   Tooltip,
 } from "@/components";
 import { interestQueries } from "@/services/queries";
-import { Remove } from "./sub-component";
+import { ReadMoreModal, Remove, useInterestActions } from "./sub-component";
 import "./styles.scss";
 import { Interest } from "@/services/queries/interest/types";
 import moment from "moment";
+import { Actionables } from "@/components/shared/actionables";
 
 const useQueries = () => {
   const searchParams = useSearchParams();
@@ -42,6 +43,8 @@ const useQueries = () => {
 function Row(props: Interest) {
   const { ...item } = props;
 
+  const { getActions } = useInterestActions(props);
+
   return (
     <tr>
       <td className="text-center Articulat-Semibold">{item.contact || "--"}</td>
@@ -51,16 +54,30 @@ function Row(props: Interest) {
             className="w-100"
             style={{ maxWidth: 300, whiteSpace: "nowrap" }}
           >
-            <span className="text-ellipsis">{item.note || "--"}</span>
+            <span className="text-ellipsis max-w-[300px]">
+              {item.note || "--"}
+            </span>
           </div>
         </Tooltip>
       </td>
-      <td className="text-center">{item?.shippingAddress || "--"}</td>
+      <td className="text-center">
+        <Tooltip tooltip={item.shippingAddress}>
+          <div
+            className="w-full max-w-[200px] overflow-hidden whitespace-nowrap text-ellipsis"
+            title={item.shippingAddress}
+          >
+            {item.shippingAddress || "--"}
+          </div>
+        </Tooltip>
+      </td>
       <td className="text-center">{item?.isAccepted ? "Yes" : "No"}</td>
       <td className="text-center">
         {item?.createdAt
           ? moment(item?.createdAt).format("MMM D, YYYY [at] h:mma")
           : "--"}
+      </td>
+      <td className="text-center">
+        <Actionables actions={getActions()} />
       </td>
     </tr>
   );
@@ -148,7 +165,7 @@ function Page() {
 
   const { data: givens, isLoading } = interestQueries.Read(pageQueries);
 
-  const { setModals } = useModals();
+  const { modals, setModals } = useModals();
 
   const handleModalShow = (record: Interest) => {
     setModals((prev) => ({ ...prev, show: true, record }));
@@ -173,6 +190,7 @@ function Page() {
                 <th>Address</th>
                 <th>Accepted</th>
                 <th>Created</th>
+                <th>Action</th>
               </tr>
             </thead>
 
@@ -199,6 +217,7 @@ function Page() {
       <div className="block md:hidden mt-3">
         <MobileRows />
       </div>
+      {modals?.show && <ReadMoreModal />}
     </div>
   );
 }

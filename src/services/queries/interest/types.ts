@@ -1,4 +1,5 @@
 import { User } from "../auth/types";
+import { Given } from "../givens/types";
 
 export interface Interest {
   id: string;
@@ -9,6 +10,7 @@ export interface Interest {
   shippingAddress: string;
   givenId: string;
   isAccepted: boolean;
+  givens: Given;
 }
 
 export interface Interests {
