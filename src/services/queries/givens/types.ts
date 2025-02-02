@@ -42,3 +42,12 @@ export type CreateGivenDto = {
   address: string;
   contact: string;
 };
+
+export interface GetRequest {
+  page: number;
+  take: number;
+  order: "asc" | "desc";
+  search: string;
+  fromDate?: string;
+  toDate?: string;
+}
