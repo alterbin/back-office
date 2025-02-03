@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createAdminUser } from "@/controller/auth";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   if (req.method !== "POST") {
     return NextResponse.json({
       status: 405,

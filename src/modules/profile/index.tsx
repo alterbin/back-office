@@ -6,7 +6,6 @@ import { getProfileImage } from '@/utils';
 import Image from 'next/image';
 import { profileQueries } from '@/services/queries';
 import { useModals } from '@/contexts/modals';
-import { ChangePasswordModal, Modal } from './sub-component';
 
 export const Profile = () => {
   const { data } = profileQueries.Read();
@@ -74,8 +73,6 @@ export const Profile = () => {
         </div>
       )}
 
-      <Modal />
-      <ChangePasswordModal />
     </div>
   );
 };
