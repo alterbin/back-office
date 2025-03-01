@@ -16,11 +16,13 @@ const Read = (
     take: 10,
     searchTerm: "",
     fromDate: "",
-    toDate: ""
+    toDate: "",
+    given: "",
   }
 ) => {
-  const { page, order, take, searchTerm, fromDate, toDate } = options;
-  const url = `${BASE_URL}?page=${page}&order=${order}&take=${take}&search=${searchTerm}${fromDate && toDate && `&fromDate=${fromDate}&toDate=${toDate}`}`;
+  const { page, order, take, searchTerm, fromDate, toDate, given } = options;
+  const url = `${BASE_URL}?page=${page}&order=${order}&take=${take}&search=${searchTerm}${fromDate && toDate && `&fromDate=${fromDate}&toDate=${toDate}`}
+  ${given && `&given=${given}`}`;
   const { asPath } = useQueryString();
 
   const response = useQuery({
@@ -87,7 +89,7 @@ const Accept = () => {
         type: "all",
         exact: false,
       });
-      setModals((old) => ({ ...old, show: false }));
+      setModals((old) => ({ ...old, edit: false }));
     },
     onError: (err: any) => {
       if (err.response && err.response.data && err.response.data.message) {

@@ -21,17 +21,10 @@ export const Button = (props: IProps) => {
 
   const btnClassName = `app_button app_button--${size} app_button--${color} app_button--${variant}--${color} app_button--${variant} ${disabled ? 'app_button--disabled' : ''} ${className} `;
 
-  const spinner = (
-    <div className="d-flex">
-      <div className="spinner-border" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    </div>
-  );
 
   if (isLoading) {
     return (
-      <button className={btnClassName} disabled={isLoading} type={type}>{spinner}</button>
+      <button className={btnClassName} disabled={isLoading} type={type}>Loading...</button>
     );
   }
 

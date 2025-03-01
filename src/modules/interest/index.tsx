@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Disclosure,
   DisclosureButton,
@@ -11,6 +11,7 @@ import { ModalsProvider, useModals } from "@/contexts/modals";
 import {
   AddButton,
   DateRangePicker,
+  Filter,
   MobileSkeleton,
   Pagination,
   SearchInput,
@@ -18,11 +19,18 @@ import {
   Tooltip,
 } from "@/components";
 import { interestQueries } from "@/services/queries";
-import { AcceptInterestModal, ReadMoreModal, Remove, useInterestActions } from "./sub-component";
+import {
+  AcceptInterestModal,
+  ReadMoreModal,
+  Remove,
+  useInterestActions,
+} from "./sub-component";
 import "./styles.scss";
 import { Interest } from "@/services/queries/interest/types";
 import moment from "moment";
 import { Actionables } from "@/components/shared/actionables";
+import { useOutsideClick } from "@/hooks";
+import { InterestsFilter } from "./sub-component/filter";
 
 const useQueries = () => {
   const searchParams = useSearchParams();
@@ -31,6 +39,7 @@ const useQueries = () => {
   const searchTerm = searchParams.get("searchTerm") || "";
   const fromDate = searchParams.get("from") || "";
   const toDate = searchParams.get("to") || "";
+  const given = searchParams.get("given") || "";
 
   return useMemo(
     () => ({
@@ -40,8 +49,9 @@ const useQueries = () => {
       searchTerm,
       fromDate,
       toDate,
+      given,
     }),
-    [page, searchTerm, fromDate, toDate]
+    [page, searchTerm, fromDate, toDate, given]
   );
 };
 
@@ -52,13 +62,15 @@ function Row(props: Interest) {
 
   return (
     <tr>
-      <td className="text-center Articulat-Semibold">{item.contact || "--"}</td>
+      <td className="text-center Articulat-Semibold">
+        {item?.givens?.name || "--"}
+      </td>
+      <td className="text-center Articulat-Semibold max-w-[100px]">
+        {item.contact || "--"}
+      </td>
       <td className="text-center tx_pink">
         <Tooltip tooltip={item.note}>
-          <div
-            className="w-100"
-            style={{ maxWidth: 300, whiteSpace: "nowrap" }}
-          >
+          <div className="w-full max-w-[150px] overflow-hidden whitespace-nowrap text-ellipsis">
             <span className="text-ellipsis max-w-[300px]">
               {item.note || "--"}
             </span>
@@ -68,7 +80,7 @@ function Row(props: Interest) {
       <td className="text-center">
         <Tooltip tooltip={item.shippingAddress}>
           <div
-            className="w-full max-w-[200px] overflow-hidden whitespace-nowrap text-ellipsis"
+            className="w-full max-w-[150px] overflow-hidden whitespace-nowrap text-ellipsis"
             title={item.shippingAddress}
           >
             {item.shippingAddress || "--"}
@@ -144,23 +156,23 @@ function MobileRow(props: Interest & { index: number }) {
 function MobileRows() {
   const pageQueries = useQueries();
 
-  const { data: givens, isLoading } = interestQueries.Read(pageQueries);
+  const { data: interests, isLoading } = interestQueries.Read(pageQueries);
 
   return (
     <div className="app__table_mobile">
       {isLoading ? (
         <MobileSkeleton rows={7} />
       ) : (
-        givens?.data?.map((item, index) => (
+        interests?.data?.map((item, index) => (
           <MobileRow {...{ ...item, index }} key={item.id} />
         ))
       )}
       <div className="flex justify-end items-end">
-        {givens?.total < 1 && !isLoading ? null : (
-          <Pagination total={givens?.total} />
+        {interests?.total < 1 && !isLoading ? null : (
+          <Pagination total={interests?.total} />
         )}
       </div>
-      {!isLoading && givens?.total < 1 && <p>No record available</p>}
+      {!isLoading && interests?.total < 1 && <p>No record available</p>}
     </div>
   );
 }
@@ -168,9 +180,12 @@ function MobileRows() {
 function Page() {
   const pageQueries = useQueries();
 
-  const { data: givens, isLoading } = interestQueries.Read(pageQueries);
+  const { data: interests, isLoading } = interestQueries.Read(pageQueries);
+  const [showFilter, setShowFilter] = useState(false);
 
   const { modals, setModals } = useModals();
+
+  const [ref] = useOutsideClick(() => setShowFilter(false));
 
   const handleModalShow = (record: Interest) => {
     setModals((prev) => ({ ...prev, show: true, record }));
@@ -180,16 +195,52 @@ function Page() {
     <div className="app__dashboard_layout__main_px app_home app__products_catalogue">
       <div className="flex justify-between">
         <SearchInput />
-         <DateRangePicker />
+        {showFilter && (
+          <div
+            className="redirect__filter__container"
+            onClick={() => setShowFilter(false)}
+          />
+        )}
+
+        <div className="flex gap-2">
+
+        <DateRangePicker />
+        <div className="relative">
+          <button
+            type="button"
+            className="flex justify-between gap-2 border bg-white px-4 py-2 my-auto"
+            disabled={isLoading}
+            onClick={() => setShowFilter(!showFilter)}
+          >
+            <p className="text-sm">Filter</p>
+            <Filter />
+          </button>
+
+          {showFilter && (
+            <div
+              className={`redirect__filter__container__wrapper absolute top-10 right-0 z-50 shadow-lg ${
+                showFilter ? "" : "hidden"
+              } `}
+              ref={ref}
+            >
+              <InterestsFilter
+                pageQueries={pageQueries}
+                setShowFilter={setShowFilter}
+              />
+            </div>
+          )}
+        </div>
+        </div>
       </div>
 
       {isLoading ? (
         <TableSkeleton rows={9} columns={6} />
       ) : (
-        <div className="table-responsive hidden md:block">
+        <div className="table-responsive hidden lg:block">
           <table className="app__admin__table table">
             <thead>
               <tr>
+                <th>Given Name</th>
                 <th>Contact</th>
                 <th>Note</th>
                 <th>Address</th>
@@ -200,26 +251,26 @@ function Page() {
             </thead>
 
             <tbody>
-              {givens?.total < 1 && !isLoading ? (
+              {interests?.total < 1 && !isLoading ? (
                 <tr>
                   <td colSpan={6} className="no-data-cell">
                     <div className="no-data-message">No Data</div>
                   </td>
                 </tr>
               ) : (
-                givens?.data?.map((item) => <Row {...item} key={item.id} />)
+                interests?.data?.map((item) => <Row {...item} key={item.id} />)
               )}
             </tbody>
           </table>
           <div className="flex justify-end items-end">
-            {givens?.total < 1 && !isLoading ? null : (
-              <Pagination total={givens?.total} />
+            {interests?.total < 1 && !isLoading ? null : (
+              <Pagination total={interests?.total} />
             )}
           </div>
         </div>
       )}
 
-      <div className="block md:hidden mt-3">
+      <div className="block lg:hidden mt-3">
         <MobileRows />
       </div>
       {modals?.show && <ReadMoreModal />}

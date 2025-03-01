@@ -14,6 +14,7 @@ export function getQueryParams(url: URL) {
     search: url.searchParams.get("search") || "",
     fromDate: url.searchParams.get("fromDate") || "",
     toDate: url.searchParams.get("toDate") || "",
+    given: url.searchParams.get("given") || "",
   };
 }
 
@@ -50,7 +51,7 @@ function buildWhereClause(
  * Fetches given interests with filtering and pagination
  */
 export async function fetchGivenInterests(params: GetRequest) {
-  const { page, take, order, search, toDate, fromDate } = params;
+  const { page, take, order, search, toDate, fromDate, given } = params;
   const skip = (page - 1) * take;
   const where: Prisma.given_interestsWhereInput = {
     ...(search
@@ -70,6 +71,7 @@ export async function fetchGivenInterests(params: GetRequest) {
           },
         }
       : {}),
+    ...(given ? { givenId: given } : {}),
   };
 
   const [total, data] = await Promise.all([
@@ -181,6 +183,20 @@ export async function updateGivenInterest(id: string, isAccepted: boolean) {
     return { error: "Interest record not found.", status: 404 };
   }
 
+  // Check if another interest for this given is already accepted
+  if (isAccepted === true) {
+    const existingAcceptedInterest = await prisma.given_interests.findFirst({
+      where: { givenId: interest.givenId, isAccepted: true },
+    });
+
+    if (existingAcceptedInterest && existingAcceptedInterest.id !== id) {
+      return {
+        message: "An interest has already been accepted for this given.",
+        status: 409,
+      };
+    }
+  }
+
   // Update the interest
   const updatedInterest = await prisma.given_interests.update({
     where: { id },
@@ -188,11 +204,24 @@ export async function updateGivenInterest(id: string, isAccepted: boolean) {
   });
 
   // If isAccepted is changed to true, update the related given record
-  if (isAccepted === true && interest.isAccepted !== true) {
+  if (isAccepted === true) {
     await prisma.givens.update({
       where: { id: interest.givenId },
       data: { isFulfilled: true },
     });
+  } else {
+    // Check if there are any remaining accepted interests for this given
+    const remainingAccepted = await prisma.given_interests.findFirst({
+      where: { givenId: interest.givenId, isAccepted: true },
+    });
+
+    // If no accepted interests remain, set isFulfilled to false
+    if (!remainingAccepted) {
+      await prisma.givens.update({
+        where: { id: interest.givenId },
+        data: { isFulfilled: false },
+      });
+    }
   }
 
   return { data: updatedInterest, status: 200 };

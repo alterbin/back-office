@@ -15,7 +15,7 @@ export function AcceptInterestModal() {
   const handleSubmit = () => {
     mutate({
       id: String(interest?.id),
-      isAccepted: true,
+      isAccepted: interest?.isAccepted ? false : true,
     });
   };
 
@@ -30,7 +30,7 @@ export function AcceptInterestModal() {
         <div className="flex flex-col gap-5">
           <h3 className="font-bold text-left">Are you sure?</h3>
           <p>
-            Proceeding will accept this interest and mark the given as fulfiled
+            Proceeding will {interest?.isAccepted ? "decline" :"accept"} this interest and mark the given as {interest?.isAccepted ? "unfulfilled": "fulfiled"}
           </p>
         </div>
 

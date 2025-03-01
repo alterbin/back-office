@@ -50,4 +50,5 @@ export interface GetRequest {
   search: string;
   fromDate?: string;
   toDate?: string;
+  given?: string;
 }

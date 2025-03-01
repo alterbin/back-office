@@ -22,7 +22,7 @@ export const useInterestActions = (data: Interest) => {
         icon: <Eye stroke="#040622" width={16} height={16} />,
       },
       {
-        label: "Accept",
+        label: data?.isAccepted ? "Decline" :  "Accept",
         onClick: () => handleViewDummy(data),
         icon: <Edit stroke="#040622" width={16} height={16} />,
       },

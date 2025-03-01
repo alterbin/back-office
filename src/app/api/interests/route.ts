@@ -16,7 +16,6 @@ export async function GET(request: Request) {
   if (authError) return authError;
 
   const params = getQueryParams(new URL(request.url));
-  console.log('params', params)
   const { total, data } = await fetchGivenInterests(params as any);
 
   return NextResponse.json({

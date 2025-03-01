@@ -25,6 +25,7 @@ export interface ReadRequest {
   searchTerm?: string | string[] | undefined;
   fromDate?: string;
   toDate?: string;
+  given?: string;
 }
 
 export interface Invite {
@@ -42,4 +43,17 @@ export interface OnboardResponse {
   statusCode: number;
   description: string;
   data: User;
+}
+
+export interface PageQuery {
+  page: number;
+  sortDir?: string;
+  take: number;
+  searchTerm?: string;
+  fromDate: string;
+  toDate?: string;
+  from?: string;
+  to?: string;
+  status?: string;
+  given?: string;
 }

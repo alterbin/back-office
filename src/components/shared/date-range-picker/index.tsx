@@ -32,8 +32,8 @@ export const DateRangePicker: React.FC<CustomDateRangePickerProps> = ({
   const pathname = usePathname();
   const { createQueryStrings } = useQueryString();
 
-  const handleOpen = () => setModals((prev) => ({ ...prev, show: true }));
-  const handleClose = () => setModals((prev) => ({ ...prev, show: false }));
+  const handleOpen = () => setModals((prev) => ({ ...prev, view: true }));
+  const handleClose = () => setModals((prev) => ({ ...prev, view: false }));
 
   const today = moment();
   const dateRanges: Record<string, [moment.Moment, moment.Moment]> = {
@@ -111,7 +111,7 @@ export const DateRangePicker: React.FC<CustomDateRangePickerProps> = ({
       />
 
       <ModalContainer
-        isOpen={modals.show}
+        isOpen={modals.view}
         onClose={handleClose}
         title="Set Date Range"
         size="sm"
