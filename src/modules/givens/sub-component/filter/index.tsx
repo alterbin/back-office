@@ -6,21 +6,19 @@ import { Button, X, Badge } from "@/components";
 import { usePathname, useRouter } from "next/navigation";
 import { SORT_DIRECTION, STATUSES } from "./constants";
 import { PageQuery } from "@/services/queries/interest/types";
-import { givenQueries } from "@/services/queries";
 
 interface TransactionsFilterProps {
   pageQueries: PageQuery;
   setShowFilter: Dispatch<SetStateAction<boolean>>;
 }
 
-export const InterestsFilter: React.FC<TransactionsFilterProps> = ({
+export const GivenFilter: React.FC<TransactionsFilterProps> = ({
   pageQueries,
   setShowFilter,
 }) => {
   const { createQueryStrings, clearQueryParams } = useQueryString();
   const { push } = useRouter();
   const pathname = usePathname();
-  const { data: givens } = givenQueries.Read(pageQueries);
 
   const [filters, setFilters] = useState<Partial<PageQuery>>({
     sortDir: pageQueries?.sortDir || "",
@@ -82,20 +80,7 @@ export const InterestsFilter: React.FC<TransactionsFilterProps> = ({
             ))}
           </div>
         </div>
-        <div className=" px-3 mt-2">
-          <h4 className="font-semibold fs-6">Givens</h4>
-          <div className="flex-wrap flex gap-3 mt-2">
-            {givens?.data?.map((item) => (
-              <Badge
-                key={item.id}
-                isSelected={filters.given === item.id}
-                label={item.name}
-                defaultValue={!filters.given && item.id === ""}
-                onClick={() => handleInputChange(item.id, "given")}
-              />
-            ))}
-          </div>
-        </div>
+
       </div>
 
       <div className="flex gap-2 px-3 py-3 border-t">

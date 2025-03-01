@@ -8,7 +8,8 @@ export async function fetchGivens(
   order: "asc" | "desc",
   search: string,
   fromDate?: string,
-  toDate?: string
+  toDate?: string,
+  isFullfilled?: string
 ) {
   const skip = (page - 1) * take;
 
@@ -30,6 +31,7 @@ export async function fetchGivens(
           },
         }
       : {}),
+      ...(isFullfilled === 'yes' ? { isFulfilled: true } : isFullfilled === 'no' ? { isFulfilled: false } : {}),
   };
 
   const [total, data] = await Promise.all([

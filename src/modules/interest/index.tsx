@@ -40,6 +40,7 @@ const useQueries = () => {
   const fromDate = searchParams.get("from") || "";
   const toDate = searchParams.get("to") || "";
   const given = searchParams.get("given") || "";
+  const isFullfilled = searchParams.get("isFullfilled") || "";
 
   return useMemo(
     () => ({
@@ -50,8 +51,9 @@ const useQueries = () => {
       fromDate,
       toDate,
       given,
+      isFullfilled,
     }),
-    [page, searchTerm, fromDate, toDate, given]
+    [page, searchTerm, fromDate, toDate, given, isFullfilled]
   );
 };
 

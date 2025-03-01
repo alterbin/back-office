@@ -11,6 +11,7 @@ import { ModalsProvider, useModals } from "@/contexts/modals";
 import {
   AddButton,
   DateRangePicker,
+  Filter,
   MobileSkeleton,
   Pagination,
   SearchInput,
@@ -24,6 +25,8 @@ import { useActions } from "./sub-component/actions";
 import { Actionables } from "@/components/shared/actionables";
 import moment from "moment";
 import { useQueryString } from "@/hooks/use-query";
+import { GivenFilter } from "./sub-component/filter";
+import { useOutsideClick } from "@/hooks";
 
 const useQueries = () => {
   const searchParams = useSearchParams();
@@ -32,6 +35,7 @@ const useQueries = () => {
   const searchTerm = searchParams.get("searchTerm") || "";
   const fromDate = searchParams.get("from") || "";
   const toDate = searchParams.get("to") || "";
+  const isFullfilled = searchParams.get("isFullfilled") || "";
 
   return useMemo(
     () => ({
@@ -40,9 +44,10 @@ const useQueries = () => {
       take: 10,
       searchTerm,
       fromDate,
-      toDate
+      toDate,
+      isFullfilled,
     }),
-    [page, searchTerm, fromDate, toDate]
+    [page, searchTerm, fromDate, toDate, isFullfilled]
   );
 };
 
@@ -148,6 +153,9 @@ function Page() {
   const pageQueries = useQueries();
 
   const { data: givens, isLoading } = givenQueries.Read(pageQueries);
+   const [showFilter, setShowFilter] = useState(false);
+    
+    const [ref] = useOutsideClick(() => setShowFilter(false));
 
   const { modals, setModals } = useModals();
 
@@ -159,7 +167,34 @@ function Page() {
     <div className="app__dashboard_layout__main_px app_home app__products_catalogue">
       <div className="flex justify-between">
         <SearchInput />
-        <DateRangePicker />
+        <div className="flex gap-2">
+          <DateRangePicker />
+          <div className="relative">
+            <button
+              type="button"
+              className="flex justify-between gap-2 border bg-white px-4 py-2 my-auto"
+              disabled={isLoading}
+              onClick={() => setShowFilter(!showFilter)}
+            >
+              <p className="text-sm">Filter</p>
+              <Filter />
+            </button>
+
+            {showFilter && (
+              <div
+                className={`redirect__filter__container__wrapper absolute top-10 right-0 z-50 shadow-lg ${
+                  showFilter ? "" : "hidden"
+                } `}
+                ref={ref}
+              >
+                <GivenFilter
+                  pageQueries={pageQueries}
+                  setShowFilter={setShowFilter}
+                />
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
       {isLoading ? (

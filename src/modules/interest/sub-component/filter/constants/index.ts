@@ -3,24 +3,9 @@ const SORT_DIRECTION = [
   { label: 'Descending', value: 'DESC' },
 ];
 
-const SOURCES = [
-  { value: 'paystack', label: 'Paystack' },
-];
-
-const CURRENCY_TYPES = [
-  // { value: 'USD', label: 'US Dollar' },
-  // { value: 'EUR', label: 'Euro' },
-  // { value: 'GBP', label: 'Pound' },
-  // { value: 'JPY', label: 'Yen' },
-  { value: 'NGN', label: 'Naira' },
-];
-
 const STATUSES = [
-  { value: 'pending', label: 'Pending' },
-  { value: 'failed', label: 'Failed' },
-  { value: 'cancelled', label: 'Cancelled' },
-  { value: 'completed', label: 'Completed' },
-  { value: 'reversed', label: 'Reversed' },
+  { value: 'yes', label: 'Accepted' },
+  { value: 'no', label: 'Not Accepted' },
 ];
 
 const TYPES = [
@@ -29,5 +14,5 @@ const TYPES = [
 ];
 
 export {
-  SORT_DIRECTION, SOURCES, CURRENCY_TYPES, STATUSES, TYPES,
+  SORT_DIRECTION, STATUSES, TYPES,
 };

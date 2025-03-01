@@ -26,6 +26,7 @@ export interface ReadRequest {
   fromDate?: string;
   toDate?: string;
   given?: string;
+  isFullfilled?: string;
 }
 
 export interface Invite {
@@ -55,5 +56,6 @@ export interface PageQuery {
   from?: string;
   to?: string;
   status?: string;
+  isFullfilled?: string;
   given?: string;
 }

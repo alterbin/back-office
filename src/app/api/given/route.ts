@@ -18,6 +18,7 @@ export async function GET(request: Request) {
   const search = url.searchParams.get("search") || "";
   const fromDate = url.searchParams.get("fromDate") || "";
   const toDate = url.searchParams.get("toDate") || "";
+  const isFullfilled = url.searchParams.get("isFullfilled") || "";
 
   try {
     const result = await fetchGivens(
@@ -26,7 +27,8 @@ export async function GET(request: Request) {
       order,
       search,
       fromDate,
-      toDate
+      toDate,
+      isFullfilled,
     );
     return NextResponse.json({
       ...result,

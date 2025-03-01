@@ -15,6 +15,7 @@ export function getQueryParams(url: URL) {
     fromDate: url.searchParams.get("fromDate") || "",
     toDate: url.searchParams.get("toDate") || "",
     given: url.searchParams.get("given") || "",
+    isFullfilled: url.searchParams.get("isFullfilled") || "",
   };
 }
 
@@ -51,7 +52,7 @@ function buildWhereClause(
  * Fetches given interests with filtering and pagination
  */
 export async function fetchGivenInterests(params: GetRequest) {
-  const { page, take, order, search, toDate, fromDate, given } = params;
+  const { page, take, order, search, toDate, fromDate, given, isFullfilled } = params;
   const skip = (page - 1) * take;
   const where: Prisma.given_interestsWhereInput = {
     ...(search
@@ -72,6 +73,7 @@ export async function fetchGivenInterests(params: GetRequest) {
         }
       : {}),
     ...(given ? { givenId: given } : {}),
+    ...(isFullfilled === 'yes' ? { isAccepted: true } : isFullfilled === 'no' ? { isAccepted: false } : {}),
   };
 
   const [total, data] = await Promise.all([

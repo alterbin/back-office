@@ -83,12 +83,12 @@ export function EditModal() {
             onChange={() => setFieldValue("hidden", !values.hidden)}
             checked={!values?.hidden}
           />
-          <Toggle
+          {/* <Toggle
             label="Fulfilled"
             id="isFulfilled"
             onChange={handleChange}
             checked={values?.isFulfilled}
-          />
+          /> */}
         </div>
 
         <div className="flex w-full justify-end gap-3">

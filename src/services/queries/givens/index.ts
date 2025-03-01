@@ -18,10 +18,11 @@ const Read = (
     searchTerm: "",
     fromDate: "",
     toDate: "",
+    isFullfilled: "",
   }
 ) => {
-  const { page, order, take, searchTerm, toDate, fromDate } = options;
-  const url = `${BASE_URL}?page=${page}&order=${order}&take=${take}&search=${searchTerm}${fromDate && toDate && `&fromDate=${fromDate}&toDate=${toDate}`}`;
+  const { page, order, take, searchTerm, toDate, fromDate, isFullfilled } = options;
+  const url = `${BASE_URL}?page=${page}&order=${order}&take=${take}&search=${searchTerm}${fromDate && toDate && `&fromDate=${fromDate}&toDate=${toDate}`}${isFullfilled && `&isFullfilled=${isFullfilled}`}`;
   const { asPath } = useQueryString();
 
   const response = useQuery({

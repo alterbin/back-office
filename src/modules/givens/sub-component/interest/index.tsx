@@ -47,8 +47,7 @@ function Row(props: Interest) {
       <td className="text-center tx_pink">
         <Tooltip tooltip={item.note}>
           <div
-            className="w-100"
-            style={{ maxWidth: 300, whiteSpace: "nowrap" }}
+           className="w-full max-w-[150px] overflow-hidden whitespace-nowrap text-ellipsis"
           >
             <span className="text-ellipsis">{item.note || "--"}</span>
           </div>
@@ -171,7 +170,7 @@ function Page() {
       {isLoading ? (
         <TableSkeleton rows={9} columns={6} />
       ) : (
-        <div className="table-responsive hidden md:block">
+        <div className="table-responsive hidden lg:block">
           <table className="app__admin__table table">
             <thead>
               <tr>
@@ -203,7 +202,7 @@ function Page() {
         </div>
       )}
 
-      <div className="block md:hidden mt-3">
+      <div className="block lg:hidden mt-3">
         <MobileRows />
       </div>
     </div>

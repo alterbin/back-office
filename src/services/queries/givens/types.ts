@@ -27,6 +27,7 @@ export interface ReadRequest {
   searchTerm?: string | string[] | undefined;
   fromDate?: string;
   toDate?: string;
+  isFullfilled?: string;
 }
 
 export interface InviteResponse {
@@ -51,4 +52,5 @@ export interface GetRequest {
   fromDate?: string;
   toDate?: string;
   given?: string;
+  isFullfilled?: string;
 }
