@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "cockroachdb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -42,6 +42,15 @@ model admin_user {
   id       String   @id @default(uuid())
   email    String   @unique
   password String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model collections {
+  id       String   @id @default(uuid())
+  title    String   @unique
+  description String
+  images    String[]  @default([])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

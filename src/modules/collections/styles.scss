@@ -1,0 +1,134 @@
+@import "../../assets//styles//main.scss";
+
+.app__products_catalogue {
+  .table {
+    thead th {
+      white-space: nowrap;
+    }
+  }
+}
+
+.app_home {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 20px;
+  min-height: 80vh;
+  width: 100%;
+}
+
+:root {
+  --blue: #009adb;
+  --pink: #ed196f;
+  --pink-bg: #f5dae6;
+  --sm-text: #7f7f7f;
+}
+
+.app__admin__table {
+  border-bottom-width: 0;
+  padding-bottom: 22rem;
+  border-collapse: collapse;
+  border: none;
+  font-family: Articulat-Regular;
+
+  &__person__h5 {
+    font-size: 16px;
+  }
+}
+
+.table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.table > :not(caption) > * > * {
+  padding: 1rem 1rem;
+  border-bottom: none;
+  width: auto;
+  font-size: 15px;
+  // overflow-wrap: break-word;
+  // word-break: break-all;
+}
+
+.app__admin__table thead th {
+  font-family: Articulat-Bold;
+  font-size: 18px;
+  line-height: 30px;
+  color: #545965;
+  padding: 1rem;
+  background: inherit;
+  width: 100%;
+
+  &:first-child {
+    padding-right: 2px !important;
+    border-radius: 6px 0 0 6px;
+  }
+  &:last-child {
+    padding-right: 2px !important;
+    border-radius: 0 6px 6px 0;
+  }
+}
+
+.app__admin__table thead tr {
+  background-color: #f8f9fa;
+}
+.app__admin__table tbody tr {
+  cursor: pointer;
+}
+
+.app__connect__viewmore__btn {
+  border: none;
+  background-color: transparent;
+  color: #545965;
+  background-color: #ebecef;
+  border-radius: 10px;
+  padding: 10px;
+  font-family: Articulat-Semibold;
+}
+
+.app__admin__table {
+  position: relative;
+}
+
+.no-data-cell {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.no-data-message {
+  font-size: 28px;
+  font-family: Articulat-Semibold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.redirect__filter__container {
+  background: rgba(0, 0, 0, 0.05);
+  z-index: 40;
+  position: fixed;
+  inset: 0px;
+
+  &__wrapper {
+    --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color),
+      0 4px 6px -4px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+      var(--tw-shadow);
+    top: 2.5rem;
+    right: 0px;
+    z-index: 50;
+  }
+}
+

@@ -28,6 +28,7 @@ export const metaData = {
 const getAdminRoutes = () => [
   { label: "Given", href: routes.givens.path, icon: <Team /> },
   { label: "Interest", href: routes.interest.path, icon: <Person /> },
+  { label: "Collections", href: routes.collections.path, icon: <Home /> },
 ];
 
 type SBRoute = {

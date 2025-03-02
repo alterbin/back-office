@@ -48,6 +48,9 @@ const routes = {
   interest: {
     path: "/interests",
   },
+  collections: {
+    path: "/collections",
+  },
 };
 
 export default routes;
