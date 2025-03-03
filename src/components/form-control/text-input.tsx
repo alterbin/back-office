@@ -27,7 +27,7 @@ export function TextInput(props: IProps) {
 
   return (
     <div className={`form-group ${className || ''}`}>
-      {!!label && <label className={error ? 'text-red-800' : ''} htmlFor={htmlFor}>{label}</label>}
+      {!!label && <label className={`font-semibold ${error ? 'text-red-800' : ''}`} htmlFor={htmlFor}>{label}</label>}
 
       <div className="relative">
         <input

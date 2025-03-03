@@ -5,7 +5,6 @@ import { useQueryString } from "@/hooks/use-query";
 import api from "../../api";
 import queryKey from "./keys";
 import { ReadRequest, ICollection, ICollections } from "./types";
-import { Interests } from "../interest/types";
 import { useModals } from "@/contexts/modals";
 
 const BASE_URL = "/api/collections";
@@ -21,7 +20,9 @@ const Read = (
   }
 ) => {
   const { page, order, take, searchTerm, toDate, fromDate } = options;
-  const url = `${BASE_URL}?page=${page}&order=${order}&take=${take}&search=${searchTerm}${fromDate && toDate && `&fromDate=${fromDate}&toDate=${toDate}`}`;
+  const url = `${BASE_URL}?page=${page}&order=${order}&take=${take}&search=${searchTerm}${
+    fromDate && toDate && `&fromDate=${fromDate}&toDate=${toDate}`
+  }`;
   const { asPath } = useQueryString();
 
   const response = useQuery({
@@ -41,36 +42,37 @@ const Read = (
 };
 
 const Create = (options = {}) => {
-    const queryClient = useQueryClient();
-    const { setModals } = useModals();
-  
-    const { mutate, ...response } = useMutation({
-      mutationFn: api.post,
-      mutationKey: [queryKey.create],
-      ...options,
-      onSuccess: async (data: any) => {
-        successToast(data.message);
-        await queryClient.invalidateQueries({ queryKey: [queryKey.read] });
-        setModals((old) => ({ ...old, edit: false }));
-      },
-      onError: (err: any) => {
-        if (err.response && err.response.data && err.response.data.message) {
-          errorToast(err.response.data.message);
-        } else {
-          errorToast("Something went wrong");
-        }
-      },
-    });
-    return {
-      ...response,
-      mutate: (body: Partial<ICollection>) => {
-        mutate({ url: `${BASE_URL}`, body: { ...body } });
-      },
-    };
+  const queryClient = useQueryClient();
+  const { setModals } = useModals();
+
+  const { mutate, ...response } = useMutation({
+    mutationFn: api.post,
+    mutationKey: [queryKey.create],
+    ...options,
+    onSuccess: async (data: any) => {
+      successToast(data.message);
+      await queryClient.invalidateQueries({ queryKey: [queryKey.read] });
+      setModals((old) => ({ ...old, create: false }));
+    },
+    onError: (err: any) => {
+      if (err.response && err.response.data && err.response.data.message) {
+        errorToast(err.response.data.message);
+      } else {
+        errorToast("Something went wrong");
+      }
+    },
+  });
+  return {
+    ...response,
+    mutate: (body: Partial<ICollection>) => {
+      mutate({ url: `${BASE_URL}`, body: { ...body } });
+    },
   };
+};
 
 const Del = () => {
   const queryClient = useQueryClient();
+  const { setModals } = useModals();
 
   const { mutate, ...response } = useMutation({
     mutationFn: api.delete,
@@ -82,7 +84,7 @@ const Del = () => {
         type: "all",
         exact: false,
       });
-      document.body.click();
+      setModals((old) => ({ ...old, delete: false }));
     },
     onError: (err: any) => {
       if (err.response && err.response.data && err.response.data.message) {
@@ -96,13 +98,12 @@ const Del = () => {
     ...response,
     mutate: (body: { id: string }) => {
       mutate({
-        url: `${BASE_URL}/${body?.id}`,
+        url: `${BASE_URL}`,
         body: { ...body },
       });
     },
   };
 };
-
 
 const Put = (options = {}) => {
   const queryClient = useQueryClient();
@@ -115,7 +116,7 @@ const Put = (options = {}) => {
     onSuccess: async (data: any) => {
       successToast(data.message);
       await queryClient.invalidateQueries({ queryKey: [queryKey.read] });
-      setModals((old) => ({ ...old, edit: false }));
+      setModals((old) => ({ ...old, create: false }));
     },
     onError: (err: any) => {
       if (err.response && err.response.data && err.response.data.message) {

@@ -10,6 +10,17 @@ export async function POST(request: Request) {
   try {
     const { title, description, images } = await request.json();
 
+    const existingCollection = await prisma?.collections.findUnique({
+      where: {title},
+    })
+
+    if (existingCollection) {
+      return NextResponse.json(
+        { message: "Collection title already exists" },
+        { status: 400 }
+      );
+    }
+
     const collection = await prisma.collections.create({
       data: { title, description, images },
     });
@@ -51,6 +62,17 @@ export async function PATCH(request: Request) {
   if (authError) return authError;
   try {
     const { id, title, description, images } = await request.json();
+
+    const existingCollection = await prisma?.collections.findUnique({
+      where: {title},
+    })
+
+    if (existingCollection && existingCollection?.id !== id) {
+      return NextResponse.json(
+        { message: "Collection title already exists" },
+        { status: 400 }
+      );
+    }
 
     const updatedCollection = await prisma.collections.update({
       where: { id },

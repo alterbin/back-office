@@ -31,6 +31,7 @@ import moment from "moment";
 import { Actionables } from "@/components/shared/actionables";
 import { useOutsideClick } from "@/hooks";
 import { ICollection } from "@/services/queries/collections/types";
+import { DeleteCollectionModal, Modal, useActions } from "./sub-components";
 
 const useQueries = () => {
   const searchParams = useSearchParams();
@@ -60,14 +61,12 @@ const useQueries = () => {
 function Row(props: ICollection) {
   const { ...item } = props;
 
-//   const { getActions } = useInterestActions(props);
+  const { getActions } = useActions(props);
 
   return (
     <tr>
-      <td className="text-center Articulat-Semibold">
-        {item?.title || "--"}
-      </td>
- 
+      <td className="text-center Articulat-Semibold capitalize">{item?.title || "--"}</td>
+
       <td className="text-center tx_pink">
         <Tooltip tooltip={item.description}>
           <div className="w-full max-w-[150px] overflow-hidden whitespace-nowrap text-ellipsis">
@@ -77,15 +76,15 @@ function Row(props: ICollection) {
           </div>
         </Tooltip>
       </td>
- 
+
       <td className="text-center">
         {item?.createdAt
           ? moment(item?.createdAt).format("MMM D, YYYY [at] h:mma")
           : "--"}
       </td>
-      {/* <td className="text-center">
+      <td className="text-center">
         <Actionables actions={getActions()} />
-      </td> */}
+      </td>
     </tr>
   );
 }
@@ -111,7 +110,6 @@ function MobileRow(props: ICollection & { index: number }) {
             </div>
 
             <hr />
-  
 
             <hr />
             <div>
@@ -183,8 +181,11 @@ function Page() {
         )}
 
         <div className="flex gap-2">
-
-        <DateRangePicker />
+          {/* <DateRangePicker /> */}
+          <AddButton
+            title="Add collection"
+            action={() => setModals({ ...modals, create: true, record: {} })}
+          />
         </div>
       </div>
 
@@ -195,13 +196,10 @@ function Page() {
           <table className="app__admin__table table">
             <thead>
               <tr>
-                <th>Given Name</th>
-                <th>Contact</th>
-                <th>Note</th>
-                <th>Address</th>
-                <th>Accepted</th>
-                <th>Created</th>
-                <th>Action</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Created AT</th>
+                <th>Actions</th>
               </tr>
             </thead>
 
@@ -228,8 +226,8 @@ function Page() {
       <div className="block lg:hidden mt-3">
         <MobileRows />
       </div>
-      {/* {modals?.show && <ReadMoreModal />}
-      {modals?.edit && <AcceptInterestModal />} */}
+      {modals?.create && <Modal />}
+      {modals?.delete && <DeleteCollectionModal />}
     </div>
   );
 }

@@ -7,3 +7,25 @@ export function Trash({ stroke = '#7155A3', ...props }: SVGProps<SVGSVGElement>)
     </svg>
   );
 }
+
+export function X(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      // width="10"
+      // height="10"
+      className="w-[10px] h-[10px] md:w-5 md:h-5 "
+      viewBox="0 0 10 10"
+      fill="none"
+      {...props}
+    >
+      <path
+        d="M1.50537 8.49531L5.0007 4.99997L8.49604 8.49531M8.49604 1.50464L5.00004 4.99997L1.50537 1.50464"
+        stroke="#F2515C"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
