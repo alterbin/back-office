@@ -107,7 +107,7 @@ export const Form = () => {
             <Button
               type="submit"
               isLoading={isPending || isLoading}
-              disabled={!isValid || !dirty}
+              disabled={!values.title || !values.description || !photos.length}
             >
               {isPending || isLoading ? "Saving..." : "Save"}
             </Button>

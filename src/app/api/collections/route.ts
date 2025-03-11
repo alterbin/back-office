@@ -10,7 +10,7 @@ export async function POST(request: Request) {
   try {
     const { title, description, images } = await request.json();
 
-    const existingCollection = await prisma?.collections.findUnique({
+    const existingCollection = await prisma?.gallery_collections.findUnique({
       where: {title},
     })
 
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const collection = await prisma.collections.create({
+    const collection = await prisma.gallery_collections.create({
       data: { title, description, images },
     });
 
@@ -43,7 +43,7 @@ export async function GET(request: Request) {
   if (authError) return authError;
 
   try {
-    const collections = await prisma.collections.findMany();
+    const collections = await prisma.gallery_collections.findMany();
     return NextResponse.json({
       data: collections,
       message: "Collections fetched successfully",
@@ -63,7 +63,7 @@ export async function PATCH(request: Request) {
   try {
     const { id, title, description, images } = await request.json();
 
-    const existingCollection = await prisma?.collections.findUnique({
+    const existingCollection = await prisma?.gallery_collections.findUnique({
       where: {title},
     })
 
@@ -74,7 +74,7 @@ export async function PATCH(request: Request) {
       );
     }
 
-    const updatedCollection = await prisma.collections.update({
+    const updatedCollection = await prisma.gallery_collections.update({
       where: { id },
       data: { title, description, images },
     });
@@ -98,7 +98,7 @@ export async function DELETE(request: Request) {
   try {
     const { id } = await request.json();
 
-    await prisma.collections.delete({
+    await prisma.gallery_collections.delete({
       where: { id },
     });
 

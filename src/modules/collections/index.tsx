@@ -31,7 +31,7 @@ import moment from "moment";
 import { Actionables } from "@/components/shared/actionables";
 import { useOutsideClick } from "@/hooks";
 import { ICollection } from "@/services/queries/collections/types";
-import { DeleteCollectionModal, Modal, useActions } from "./sub-components";
+import { DeleteCollectionModal, Modal, useActions, ViewMoreModal } from "./sub-components";
 
 const useQueries = () => {
   const searchParams = useSearchParams();
@@ -227,6 +227,7 @@ function Page() {
         <MobileRows />
       </div>
       {modals?.create && <Modal />}
+      {modals?.show && <ViewMoreModal />}
       {modals?.delete && <DeleteCollectionModal />}
     </div>
   );

@@ -14,17 +14,17 @@ export const ViewMoreModal = () => {
     <ModalContainer
       isOpen={modals.show}
       onClose={handleClose}
-      title={collection?.id ? "Edit Collection" : "Create Collection"}
+      title={"Gallery Collections"}
     >
       <div className="w-full">
         <div className="flex flex-col gap-4 w-full">
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 gap-4 max-h-[600px] overflow-y-auto">
             {collection?.images?.map((image, index) => (
               <img
                 key={index}
                 src={image}
                 alt="collection"
-                className="w-20 h-20 object-cover rounded-lg"
+                className="w-56 h-40 object-cover rounded-lg"
               />
             ))}
           </div>
