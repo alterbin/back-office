@@ -1,4 +1,5 @@
 import { PlusCircle, X } from "@/components";
+import { getPublicIdFromUrl } from "@/utils";
 import { useState, ChangeEvent } from "react";
 import toast from "react-hot-toast";
 
@@ -85,8 +86,40 @@ export default function ImageUploader({
     document.body.removeChild(input);
   };
 
-  const handleDelete = (index: number) => {
-    setPhotos((prevPhotos) => prevPhotos.filter((_, i) => i !== index));
+  const handleDelete = async (index: number) => {
+    const imageToDelete = photos[index];
+
+    if (!imageToDelete) return;
+
+    try {
+      const publicId = getPublicIdFromUrl(imageToDelete);
+
+      if (!publicId) {
+        toast.error("Failed to delete image from cloud storage");
+        return;
+      }
+
+      const response = await fetch("/api/cloudinary/delete", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ publicId }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          errorData.message || "Failed to delete from Cloudinary"
+        );
+      }
+
+      toast.success("Image deleted successfully");
+      setPhotos((prevPhotos) => prevPhotos.filter((_, i) => i !== index));
+    } catch (error) {
+      console.error("Error deleting image from Cloudinary:", error);
+      toast.error("Failed to delete image from cloud storage");
+    }
   };
 
   return (
@@ -132,14 +165,13 @@ export default function ImageUploader({
               </div>
             </div>
           )}
-        <button
-          onClick={handleFileSelect}
-          className="border border-[#E5E5E5] w-24 h-20 rounded-lg flex justify-center items-center border-dashed ml-3"
-        >
-          <PlusCircle />
-        </button>
+          <button
+            onClick={handleFileSelect}
+            className="border border-[#E5E5E5] w-24 h-20 rounded-lg flex justify-center items-center border-dashed ml-3"
+          >
+            <PlusCircle />
+          </button>
         </div>
-
       </div>
     </div>
   );
