@@ -1,5 +1,6 @@
 import { Profile } from '@/services/queries/profile/types';
-export {zodToFormikAdapter} from './zodToFormikAdapter'
+export { zodToFormikAdapter } from './zodToFormikAdapter'
+export { getPublicIdFromUrl } from './generate-public-id'
 
 export const getPageHeading = (pathname: string) => {
   const pageName = pathname.substring(pathname.lastIndexOf('/') + 1);
