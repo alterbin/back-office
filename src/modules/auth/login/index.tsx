@@ -30,7 +30,7 @@ export const LoginTemplate = () => {
       <div className="app__auth__wrapper m-0 p-0 flex flex-col pt-20 md:pt-32 gap-2 lg:w-1/2">
         <div className="mb-5 sm:mb- mx-auto w-full max-w-md">
           <h1>
-            <span className="text-gray-800 lg:hidden py-10 text-xl md:text-4xl text-xl leading-tight md:leading-[37.57px] font-black uppercase">
+            <span className="text-gray-800 lg:hidden py-10 text-xl md:text-4xl leading-tight md:leading-[37.57px] font-black uppercase">
                 Philan back Office
               </span>
           </h1>
@@ -142,8 +142,7 @@ export const LoginTemplate = () => {
               </span>
             </a>
             <p className="text-center text-gray-400 dark:text-white/60">
-              Manage all your Philan activities in one place - from donations to
-              campaigns and beyond.
+              Manage all your Philan activities in one place.
             </p>
           </div>
         </div>

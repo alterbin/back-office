@@ -1,11 +1,14 @@
-
 :root {
   --sidebar-w: 270px;
 }
 
 // auth page layout starts
 .app__auth_layout {
-  background: linear-gradient(0deg, var(--brand-2) 14.27%, rgba(255, 235, 92, 0) 92.48%);
+  background: linear-gradient(
+    0deg,
+    var(--brand-2) 14.27%,
+    rgba(255, 235, 92, 0) 92.48%
+  );
   background-image: url(/media/svgs/bgs/bg-auth.svg);
   background-position: center;
   background-size: cover;
@@ -27,7 +30,11 @@
   }
 
   &__form_bdr {
-    background: linear-gradient(0deg, var(--brand-2) 14.27%, rgba(255, 235, 92, 0) 92.48%);
+    background: linear-gradient(
+      0deg,
+      var(--brand-2) 14.27%,
+      rgba(255, 235, 92, 0) 92.48%
+    );
     background-image: url(/media/svgs/bgs/login-border-lg.svg);
     background-position: center;
     background-size: contain;
@@ -85,9 +92,11 @@
     min-height: 100vh;
     width: var(--sidebar-w);
     // background-color: #fff;
-    background-color: var(--brand);
+    background-color: #0e0c28;
     position: fixed;
     overflow-y: auto;
+    box-shadow: 0 0 28px rgba(82, 63, 105, 0.08);
+    transition: all 0.3s ease;
 
     &__logo {
       font-size: 26px;
@@ -104,7 +113,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      height: 90%;
+      height: 100%;
       padding: 38px 0;
 
       // &_px {
@@ -134,23 +143,26 @@
         }
 
         &__a {
-          background-color: transparent;
-          // border-radius: 20px;
-          color: #707181;
+          padding: 12px 30px;
+          color: #8287a0;
+          font-size: 0.9rem;
           display: flex;
-          padding: 11px 24px;
-          transition: all 0.2s ease-in-out;
-          text-decoration: none;
-          font-family: Articulat-Semibold;
+          align-items: center;
+          transition: all 0.2s ease;
+          border-left: 3px solid transparent;
+          font-weight: 700;
+          margin-bottom: 10px;
+          letter-spacing: 0.5px;
+          box-sizing: border-box;
           position: relative;
-          margin: 0 4px 4px 4px;
 
           &.active,
           &:hover {
-            color: #f9f9f9;
-            opacity: 0.9;
-            transition: all 0.2s ease-in-out;
-            border-radius: 10px;
+            color: #fff;
+            transition: color 0.2s ease-in-out,
+              background-color 0.2s ease-in-out,
+              border-left-color 0.2s ease-in-out;
+            border-radius: 0;
 
             svg {
               margin-right: 12px;
@@ -161,12 +173,14 @@
           }
 
           &:hover {
-            background-color: hsla(0, 0%, 100%, 0.1);
+            background-color: transparent;
           }
 
           &.active {
-            background-color: var(--red);
-            opacity: 0.8;
+            background-color: rgba(255, 255, 255, 0.08);
+            border-left: 5px solid red;
+            border-radius: 0;
+            width: 100%;
             svg {
               > path {
                 fill: #f9f9f9;
@@ -178,11 +192,11 @@
               left: 0;
               top: 50%;
               transform: translateY(-50%);
-              background-color: #f9f9f9;
               height: 20px;
               width: 5px;
               border-radius: 0 4px 4px 0;
               margin-right: 50px;
+              z-index: 1;
             }
           }
 
@@ -433,8 +447,8 @@
 .shadow-dropdown {
   --tw-shadow: 0px 2px 16px rgba(0, 0, 0, 0.2);
   --tw-shadow-colored: 0px 2px 16px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
-    var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .dropdown-item:active {
   background-color: rgb(247, 217, 217) !important;
