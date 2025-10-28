@@ -107,8 +107,8 @@ export const LoginTemplate = () => {
                       type="submit"
                       title="log in"
                       size="xl"
-                      color="primary"
-                      className="mt-4 transition w-full uppercase"
+                      color='primary'
+                      className="mt-4 transition w-full uppercase !bg-[#465fff] hover:bg-[#3641f5] !border-[#3641f5] hover:border-[#3641f5]"
                       isLoading={isPending}
                     />
                   </div>
@@ -126,7 +126,7 @@ export const LoginTemplate = () => {
           </Formik>
         </div>
       </div>
-      <div className="!bg-red-900 relative hidden h-full w-full items-center lg:grid lg:w-1/2">
+      <div className="!bg-[#161950] relative hidden h-full w-full items-center lg:grid lg:w-1/2">
         <div className="z-1 flex items-center justify-center">
           <div className="absolute right-0 top-0 -z-1 w-full max-w-[250px] xl:max-w-[450px]">
             <img src="/images/grid-01.svg" alt="grid" />
