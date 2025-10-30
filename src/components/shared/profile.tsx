@@ -1,9 +1,9 @@
 import React from 'react';
-import { getProfileImage } from '@/utils';
+import {getProfileImage} from '@/utils';
 import Image from 'next/image';
-import { useAdminDeleteSession } from '@/hooks';
-import { LogOut } from '../svgs';
-import { Profile as TProfile } from '../../services/queries/profile/types';
+import {useAdminDeleteSession} from '@/hooks';
+import {LogOut} from '../svgs';
+import {Profile as TProfile} from '../../services/queries/profile/types';
 
 interface IProps {
   setShowSidebar?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,19 +12,21 @@ interface IProps {
 }
 
 export function Profile(props: IProps) {
-  const { setShowSidebar = () => null, type = 'header', data = {} as TProfile } = props;
+  const {
+    setShowSidebar = () => null,
+    type = 'header',
+    data = {} as TProfile,
+  } = props;
 
   const profileImage = getProfileImage(data);
-  const { logout } = useAdminDeleteSession();
+  const {logout} = useAdminDeleteSession();
 
   const isHeader = type === 'header';
   const isSidebar = type === 'sidebar';
 
   const name = (
     <h6 className="Articulat-Semibold text-capitalize">
-      {data.firstName}
-      {' '}
-      {data.lastName}
+      {data.firstName} {data.lastName}
     </h6>
   );
 
@@ -32,28 +34,63 @@ export function Profile(props: IProps) {
     <div className="app__dashboard_layout__header__profile">
       {isHeader && (
         <>
-          <Image
-            className="app__dashboard_layout__header__profile__img"
-            height={40}
-            width={40}
-            src={profileImage}
-            alt=""
-          />
-          <div className="text tx_red hidden lg:block">{name}</div>
+          <div
+            className="relative"
+            // x-data="{ dropdownOpen: false }"
+            // @click.outside="dropdownOpen = false"
+          >
+            <a
+              className="flex items-center text-gray-700"
+              href="#"
+              // @click.prevent="dropdownOpen = ! dropdownOpen"
+            >
+              <span className="mr-3 h-11 w-11 overflow-hidden rounded-full">
+                <Image
+                  className="app__dashboard_layout__header__profile__img !bg-blue"
+                  height={40}
+                  width={40}
+                  src={profileImage}
+                  alt=""
+                />{' '}
+              </span>
+
+              <span className="text-theme-sm mr-1 block font-medium">
+                {name}
+              </span>
+
+              <svg
+                // :class="dropdownOpen && 'rotate-180'"
+                className="stroke-gray-500"
+                width="18"
+                height="20"
+                viewBox="0 0 18 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4.3125 8.65625L9 13.3437L13.6875 8.65625"
+                  stroke=""
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
+          </div>
         </>
       )}
 
-      {isSidebar && (
+      {/* {isSidebar && (
         <button type="button" onClick={logout} className=" flex gap-3 bg-transparent border-0">
           <span className="text-white ms-3 font-semibold">Logout</span>
           <LogOut className="cursor-pointer ms-1 my-auto" />
         </button>
-      )}
+      )} */}
 
       {type === 'header' && (
         <span
           role="none"
-          onClick={() => setShowSidebar((prev) => !prev)}
+          onClick={() => setShowSidebar(prev => !prev)}
           className="cursor-pointer block lg:hidden"
         >
           {/* eslint-disable-next-line @typescript-eslint/no-use-before-define */}

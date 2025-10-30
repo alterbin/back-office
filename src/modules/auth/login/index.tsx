@@ -30,7 +30,7 @@ export const LoginTemplate = () => {
       <div className="app__auth__wrapper m-0 p-0 flex flex-col pt-20 md:pt-32 gap-2 lg:w-1/2">
         <div className="mb-5 sm:mb- mx-auto w-full max-w-md">
           <h1>
-            <span className="text-gray-800 lg:hidden py-10 text-xl md:text-4xl text-xl leading-tight md:leading-[37.57px] font-black uppercase">
+            <span className="text-gray-800 lg:hidden py-10 text-xl md:text-4xl leading-tight md:leading-[37.57px] font-black uppercase">
                 Philan back Office
               </span>
           </h1>
@@ -107,8 +107,8 @@ export const LoginTemplate = () => {
                       type="submit"
                       title="log in"
                       size="xl"
-                      color="primary"
-                      className="mt-4 transition w-full uppercase"
+                      color='primary'
+                      className="mt-4 transition w-full uppercase !bg-[#465fff] hover:bg-[#3641f5] !border-[#3641f5] hover:border-[#3641f5]"
                       isLoading={isPending}
                     />
                   </div>
@@ -126,7 +126,7 @@ export const LoginTemplate = () => {
           </Formik>
         </div>
       </div>
-      <div className="!bg-red-900 relative hidden h-full w-full items-center lg:grid lg:w-1/2">
+      <div className="!bg-[#161950] relative hidden h-full w-full items-center lg:grid lg:w-1/2">
         <div className="z-1 flex items-center justify-center">
           <div className="absolute right-0 top-0 -z-1 w-full max-w-[250px] xl:max-w-[450px]">
             <img src="/images/grid-01.svg" alt="grid" />
@@ -142,8 +142,7 @@ export const LoginTemplate = () => {
               </span>
             </a>
             <p className="text-center text-gray-400 dark:text-white/60">
-              Manage all your Philan activities in one place - from donations to
-              campaigns and beyond.
+              Manage all your Philan activities in one place.
             </p>
           </div>
         </div>
