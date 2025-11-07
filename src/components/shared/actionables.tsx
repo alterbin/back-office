@@ -26,7 +26,7 @@ export const Actionables: React.FC<ActionablesProps> = ({
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button className="p-2 bg-gray-100 rounded-md hover:bg-gray-200">
-            {customTrigger || <ActionsIcon stroke="var(--red)" />}
+            {customTrigger || <ActionsIcon className="stroke-[#465fff]" />}
           </Menu.Button>
         </div>
 
@@ -49,7 +49,7 @@ export const Actionables: React.FC<ActionablesProps> = ({
                       disabled={action.disabled}
                       className={`group flex w-full items-center px-4 py-2 text-sm rounded-md ${
                         action.variant === "danger"
-                          ? "text-red-600"
+                          ? "text-[#465fff]"
                           : "text-gray-900"
                       } ${active ? "bg-gray-100" : ""}`}
                     >

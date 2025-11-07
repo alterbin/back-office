@@ -129,7 +129,7 @@ export default function ImageUploader({
         {required && <span className="text-red-10 ml-1">*</span>}
       </label>
       <div className="bg-[#FAFAFA] border border-[#E5E5E5] min-h-[144px] w-full border-dashed rounded-2xl flex px-4 py-4 md:py-0 items-center">
-        <div className="flex items-center flex-wrap gap-3">
+        <div className="flex items-center justify-center mx-auto flex-wrap gap-3">
           {photos.map((photo, index) => (
             <div key={index} className="relative w-24 h-20">
               <button
