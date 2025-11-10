@@ -95,9 +95,9 @@ function Row(props: ICollection) {
       </td>
       <td className="px-6 py-3 whitespace-nowrap">
         <div className="flex items-center">
-          <p className="text-gray-700 text-theme-sm lowercase">
+          <div className="text-gray-700 text-theme-sm lowercase">
             <Actionables actions={getActions()} />
-          </p>
+          </div>
         </div>
       </td>
     </tr>
