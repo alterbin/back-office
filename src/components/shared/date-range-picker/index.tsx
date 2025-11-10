@@ -117,7 +117,7 @@ export const DateRangePicker: React.FC<CustomDateRangePickerProps> = ({
         size="sm"
       >
         <div className="w-full">
-          <div className="mt-4 flex flex-col gap-3">
+          <div className="mt-4 flex flex-col gap-3 text-gray-700">
             <TextInput
               label="Start Date"
               type="date"
