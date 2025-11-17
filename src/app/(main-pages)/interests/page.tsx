@@ -3,7 +3,7 @@ import { Suspense } from "react";
 
 export default function Home() {
   return (
-    <div className="flex justify-center items-center h-screen w-full mt-10">
+    <div className="flex justify-center mt-20 items-start h-screen w-full">
       <Suspense fallback={<>Loading...</>}>
         <Interests />
       </Suspense>

@@ -68,14 +68,14 @@ export const Form = () => {
       onClose={handleClose}
       title={collection?.id ? "Edit Collection" : "Create Collection"}
     >
-      <div className="w-full">
+      <div className="relative w-full max-w-[584px] rounded-3xl bg-white">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
-          <div className="grid gap-2">
+         
+          <div className="grid gap-4">
             <TextInput
               label="Title"
               name="title"
               placeholder="title"
-              className="app__auth__input_con"
               value={values.title}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -86,7 +86,6 @@ export const Form = () => {
             label="Description"
             name="description"
             placeholder="description"
-            className="app__auth__input_con"
             value={values.description}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -100,14 +99,15 @@ export const Form = () => {
             required
           />
 
-          <div className="flex w-full justify-end gap-3">
-            <Button type="button" variant="outlined" onClick={handleClose}>
+          <div className="flex items-center justify-end w-full gap-3 mt-6">
+            <button type="button" onClick={handleClose} className="flex w-full justify-center rounded-lg border !border-gray-300 !bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs transition-colors hover:bg-gray-50 hover:text-gray-800 sm:w-auto">
               Cancel
-            </Button>
+            </button>
             <Button
               type="submit"
               isLoading={isPending || isLoading}
               disabled={!values.title || !values.description || !photos.length}
+              className="flex justify-center w-full px-4 py-3 text-sm font-medium text-white rounded-lg !bg-[#465fff] hover:bg-[#3641f5] !border-[#3641f5] hover:border-[#3641f5] shadow-theme-xs sm:w-auto"
             >
               {isPending || isLoading ? "Saving..." : "Save"}
             </Button>

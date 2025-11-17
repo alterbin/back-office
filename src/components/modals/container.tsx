@@ -65,9 +65,9 @@ export const ModalContainer: React.FC<ModalProps> = ({
                 `}
               >
                 <div
-                  className={`relative flex justify-between items-center gap-8 p-2 md:p-4 border-b border-text_color`}
+                  className={`relative w-full max-w-[584px] rounded-3xl bg-white p-6 pb-0 lg:p-10 lg:pb-0`}
                 >
-                  <h2 className="text-text_color font-bold text-lg lg:text-xl">
+                  <h2 className="text-lg font-bold text-gray-800">
                     {title || "Title"}
                   </h2>
                   <button
@@ -88,7 +88,7 @@ export const ModalContainer: React.FC<ModalProps> = ({
                     </svg>
                   </button>
                 </div>
-                <div className="bg-white px-4 md:px-6 text-text_color py-5 items-center flex justify-center">
+                <div className="bg-white p-6 pt-0 lg:p-10 lg:pt-0 text-gray-800 items-center flex justify-center">
                   {children || message}
                 </div>
               </DialogPanel>
