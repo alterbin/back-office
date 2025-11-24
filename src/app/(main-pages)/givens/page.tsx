@@ -2,7 +2,7 @@ import Givens from "@/modules/givens";
 
 export default function Home() {
   return (
-    <div className="flex justify-center items-center h-screen w-full mt-10">
+    <div className="flex justify-center mt-20 items-start h-screen w-full">
      <Givens />
     </div>
   );

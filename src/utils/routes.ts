@@ -51,6 +51,9 @@ const routes = {
   collections: {
     path: "/collections",
   },
+  media: {
+    path: "/media",
+  },
 };
 
 export default routes;

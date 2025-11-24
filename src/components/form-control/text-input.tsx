@@ -26,8 +26,8 @@ export function TextInput(props: IProps) {
   const [show, setShow] = useState(false);
 
   return (
-    <div className={`form-group ${className || ''}`}>
-      {!!label && <label className={`font-semibold ${error ? 'text-red-800' : ''}`} htmlFor={htmlFor}>{label}</label>}
+    <div className={`form-group !mb-0 !z-0 ${className || ''}`}>
+      {!!label && <label className={`font-semibold pb-2 ${error ? 'text-red-800' : ''}`} htmlFor={htmlFor}>{label}</label>}
 
       <div className="relative">
         <input
@@ -36,7 +36,7 @@ export function TextInput(props: IProps) {
           name={name}
           value={value}
           onChange={onChange}
-          className={error ? 'form-control border-red-800' : 'form-control'}
+          className={error ? 'form-control border-red-800' : 'h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10'}
           {...restProps}
         />
 
@@ -56,7 +56,7 @@ export function TextInput(props: IProps) {
       </div>
 
       {!!helperText && (
-        <p className="text-black app__auth__input_con__error" style={{ lineHeight: 'normal', opacity: 0.8 }}>
+        <p className="text-black app__auth__input_con__error " style={{ lineHeight: 'normal', opacity: 0.8 }}>
           {helperText}
         </p>
       )}

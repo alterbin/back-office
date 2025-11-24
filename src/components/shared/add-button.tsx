@@ -11,11 +11,11 @@ export const AddButton: React.FC<IProps> = ({ action, title }) => {
     <button
       type="button"
       onClick={action}
-      className="app__add__button flex my-auto"
+      className="app__add__button flex my-auto !text-[#465fff]"
     >
       <div className="my-auto">
 
-        <Add fillColor="#CC1717" />
+        <Add fillColor="#465fff" />
       </div>
       {' '}
       {title}
