@@ -31,7 +31,7 @@ export const LoginTemplate = () => {
         <div className="mb-5 sm:mb- mx-auto w-full max-w-md">
           <h1>
             <span className="text-gray-800 lg:hidden py-10 text-xl md:text-4xl leading-tight md:leading-[37.57px] font-black uppercase">
-                Philan back Office
+                Alterbin back Office
               </span>
           </h1>
           <h1 className="text-xl sm:text-4xl mb-2 font-bold text-gray-800">
@@ -138,11 +138,11 @@ export const LoginTemplate = () => {
           <div className="flex max-w-xs flex-col items-center">
             <a href="#" className="mb-4 block">
               <span className="text-white text-xl md:text-[32px] leading-tight md:leading-[37.57px] font-black uppercase">
-                Philan back Office
+                Alterbin back Office
               </span>
             </a>
             <p className="text-center text-gray-400 dark:text-white/60">
-              Manage all your Philan activities in one place.
+              Manage all your Alterbin activities in one place.
             </p>
           </div>
         </div>

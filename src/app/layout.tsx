@@ -18,7 +18,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Admin App",
-  description: "Philan back-office app",
+  description: "Alterbin back-office app",
 };
 
 export default function RootLayout({

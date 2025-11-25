@@ -10,19 +10,19 @@ import {
 import routes from "./routes";
 
 export const metaData = {
-  siteName: "Philan Admin",
+  siteName: "Alterbin Admin",
   url: "",
   geo: {
     placeName: "Lagos",
     position: "6.5474147;3.3639306",
     region: "NG",
   },
-  title: "Philan | Admin' Portal",
+  title: "Alterbin | Admin' Portal",
   description:
     "An effective platform to manage the activities of people who are willing to help others by giving out needs across Africa.",
   image: "",
   keywords:
-    "admin, philan, admin users, philantropist, givens, giving, helping hands",
+    "admin, alterbin, admin users, alterbintropist, givens, giving, helping hands",
 };
 
 const getAdminRoutes = () => [
