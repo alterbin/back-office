@@ -33,8 +33,8 @@ function Content({ children }: IProps) {
   const asPath = `${pathname}?${searchParams.toString()}`;
 
   const data = {
-    firstName: "Kunle",
-    lastName: "John"
+    firstName: "Adminstrator",
+    lastName: ""
   };
 
   const [showSidebar, setShowSidebar] = useState(false);

@@ -22,7 +22,7 @@ export function Sidebar(props: IProps) {
         <div className="app__dashboard_layout__aside__content__top app__dashboard_layout__aside__content_px">
 
           <Link href={routes.dashboard.path} className="app__dashboard_layout__aside__logo !text-white">
-            Philan Admin
+            Alterbin Admin
           </Link>
 
           <nav className="app__dashboard_layout__aside__nav">
